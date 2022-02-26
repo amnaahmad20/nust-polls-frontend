@@ -1,11 +1,11 @@
 import Main from './Main';
 import Nav from './Nav';
-
+import "./css/App.css"
 
 function App() {
 
  return (
-    <div>
+    <div className='App'>
      <Nav />
      <Main />
 
