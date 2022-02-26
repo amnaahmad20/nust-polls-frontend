@@ -1,6 +1,6 @@
 # NUST Polls
 
-This is frontend for NUST Polls i.e. MERN polling application. Frontend is built with react.
+This is frontend for NUST Polls i.e. MERN polling application. The frontend is built with React.
 
 ### How to Use
 
