@@ -1,0 +1,50 @@
+.dashboard{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.details{
+    flex-basis: 50%;
+}
+
+.banner{
+    text-align: right;
+}
+
+.head1{
+    font-size: 78px;
+    font-weight: 100;
+    color: #063651;
+}
+
+.head2{
+    font-size: 30px;
+    font-weight: 50;
+    color: #063651;
+}
+
+.button-grp{
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+
+
+}
+
+div>button{
+    background-color: #063651;
+    margin-right: 15px;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 50px;
+    border: 2px solid #063651;
+
+}
+
+.no-fill{
+    color: #063651;
+    background-color: white;
+ }

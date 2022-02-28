@@ -1,0 +1,16 @@
+.nav2{
+    height: 74px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid black;
+    padding: 0pc 10px;
+}
+
+.logout{
+    background-color: #085B91;
+    color: white;
+    padding: 5px 30px;
+    border: none;
+    border-radius: 7px;
+}
