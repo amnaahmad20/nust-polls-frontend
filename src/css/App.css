@@ -20,6 +20,58 @@
   color: #61dafb;
 }
 
+.dark-button{
+  background-color: #063651;
+  transition: 0.3s;
+}
+
+.dark-button:hover {
+  background-color: #022639;
+  transition: 0.3s;
+}
+
+.dark-button:active {
+  background-color: #001723;
+  transition: 0.3s;
+}
+
+.reg-button{
+  background-color: #085B91;
+  transition: 0.3s;
+}
+
+.reg-button:hover{
+  background-color: #034c7b;
+  transition: 0.3s;
+}
+
+.reg-button:active{
+  background-color: #00395c;
+  transition: 0.3s;
+}
+
+.stroke-button{
+  color: #063651;
+  border: 2px solid rgba(6, 54, 81, 0.25);
+  background-color: white;
+  transition: 0.3s;
+}
+
+.stroke-button:hover{
+  color: #063651;
+  border: 2px solid rgba(6, 54, 81, 0.5);
+  background-color: #f2f2f2;
+  transition: 0.3s;
+}
+
+.stroke-button:active{
+  color: #063651;
+  border: 2px solid rgba(6, 54, 81, 0.75);
+  background-color: #e6e6e6;
+  transition: 0.3s;
+}
+
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

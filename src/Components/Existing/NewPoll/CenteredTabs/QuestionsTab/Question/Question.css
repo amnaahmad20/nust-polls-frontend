@@ -1,0 +1,106 @@
+.question-heading {
+    display: flex;
+    justify-content: space-between;
+}
+
+.question-heading > div {
+    flex-grow: 1;
+}
+
+.question-body {
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
+    border: 2px solid rgba(9, 91, 145, 0.25);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 15px 0;
+    transition: all 0.3s;
+}
+
+.question-body:focus-within {
+    box-shadow: 0 -9px 0 #085B91;
+    margin-top: 24.5px;
+}
+
+.question-details {
+    transition: 0.3s;
+}
+
+.question-title {
+    color: rgba(6, 54, 82, 1);
+    font-size: 18px;
+    font-weight: 500;
+    text-align: left;
+    padding: 9px 13px !important;
+    margin: auto !important;
+    justify-content: center;
+    border-radius: 7px;
+    transition: 0.3s;
+    border: none;
+    outline: none;
+    caret-color: #085B91;
+}
+
+.question-delete-wrapper{
+    position: relative;
+    background-color: red;
+    width: 100%;
+}
+
+.question-delete-icon {
+    position: absolute;
+    right: -10px;
+    bottom: -10px;
+    cursor: pointer;
+    transition: 0.3s;
+    padding: 10px;
+    border-radius: 50%;
+    color: rgba(6, 54, 82, 0.5);
+}
+
+.question-delete-icon:hover {
+    background-color: rgba(9, 91, 145, 0.1);
+    color: #085B91;
+}
+
+.question-delete-icon:active {
+    background-color: rgba(9, 91, 145, 0.25);
+    color: #085B91;
+}
+
+
+.question-dropdown {
+    margin: 0 20px;
+    flex-basis: 0;
+
+    border: none;
+    background-color: red;
+}
+
+.question-title:hover {
+    background-color: #EFF5F9;
+}
+
+.question-title:focus {
+    border: none;
+    outline: none;
+    background-color: #dde7ef;
+    color: #085B91;
+}
+
+.dropdown-questions {
+    max-width: 225px;
+    margin-left: 20px;
+}
+
+.render {
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.6s ease;
+}
+
+.show {
+    visibility: visible;
+    opacity: 1;
+}

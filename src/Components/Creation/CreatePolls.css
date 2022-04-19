@@ -1,0 +1,44 @@
+.create-main{
+    background-color: #EFF5F9;
+    min-height: calc(100vh - 74px);
+    height: auto;
+    align-items: center;
+    text-align: center;
+}
+
+.create-container{
+    background-color: white;
+    height: auto;
+    margin: 0 75px 75px 75px;
+    border-radius: 15px;
+}
+
+.tabs{
+    background-color: white;
+    height: 58px;
+    width: 388px;
+    margin: 25px auto;
+    border-radius: 10px;
+}
+
+.tab-button{
+    position: absolute;
+    background-color: #085B91;
+    height: 38px;
+    width: 116px;
+    border-radius: 7px;
+    z-index: 0;
+    transition: 0.3s;
+}
+
+.first{
+    transform: translateX(-126px);
+    transition: 0.3s;
+    z-index: 0;
+}
+
+.third{
+    transform: translateX(126px);
+    transition: 0.3s;
+    z-index: 0;
+}
