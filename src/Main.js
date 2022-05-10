@@ -3,12 +3,12 @@ import './css/main.css';
 import eye from './img/eye.png';
 import axios from './axios';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Main() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
-  const [error, setError] = useState('');
   const [inputType, setInputType] = useState('password');
   const navigate = useNavigate();
 
@@ -20,13 +20,13 @@ function Main() {
     e.preventDefault();
     try {
       const res = await axios.post('/user/login', { username, password });
-      console.log(res);
+      toast.success(res.data.message);
       localStorage.setItem('token', res.data.token);
       setUsername('');
       setPassword('');
       res.data.data.admin ? navigate('/dash') : navigate('/student');
     } catch (err) {
-      console.log(err.response.data.message);
+      toast.error(err.response.data.message);
     }
   };
 

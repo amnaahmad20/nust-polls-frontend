@@ -4,6 +4,7 @@ import Nav from './Components/Nav/Nav';
 import Dashboard from './Components/Dashboard/Dashboard';
 import './css/App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import CreatePolls from './Components/Creation/CreatePolls';
 import ExistingPolls from './Components/Existing/ExistingPolls';
 import jwtDecode from 'jwt-decode';
@@ -23,6 +24,7 @@ function App() {
 
   return (
     <div className="App">
+      <ToastContainer position="bottom-right" />
       <Router>
         <Routes>
           <Route
