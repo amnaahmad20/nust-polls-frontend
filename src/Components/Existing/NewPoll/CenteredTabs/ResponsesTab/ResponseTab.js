@@ -1,8 +1,9 @@
 import React from 'react';
+import "./RsponseTab.css"
 
 function ResponseTab(props) {
     return (
-        <div style={{padding:"20px", fontWeight:"700", fontSize:"28px"}} >No responses Yet</div>
+        <div className={"responses"} >No responses Yet</div>
     );
 }
 

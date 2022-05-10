@@ -13,15 +13,11 @@ function MultipleChoice(props) {
 
     function deleteOption(index) {
         const newOptions = props.onDeleteOption(props.id,index)
-        console.log(props.id);
-        console.log(newOptions);
         setOptions([...newOptions])
     }
 
     function renameOption(index,text) {
         options[index].text = text
-        console.log("Renamed option")
-        console.log(options)
         return options[index]
     }
 

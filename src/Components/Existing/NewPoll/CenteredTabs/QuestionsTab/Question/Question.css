@@ -10,7 +10,6 @@
 .question-body {
     display: flex;
     flex-direction: column;
-    max-height: 100%;
     border: 2px solid rgba(9, 91, 145, 0.25);
     border-radius: 15px;
     padding: 20px;

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {EditText} from "react-edit-text";
 import 'react-edit-text/dist/index.css';
 import './Question.css'
@@ -9,7 +9,6 @@ import MultipleChoice from "./MultipleChoice/MultipleChoice";
 import {fadeIn} from "react-animations";
 import styled, {keyframes} from "styled-components";
 import {Trash} from 'lucide-react'
-import {log} from "util";
 import {useSpring,animated} from "react-spring";
 import {scale} from "react-animations/lib/utils";
 
@@ -18,11 +17,9 @@ const FadeIn = styled.div`
     `;
 
 function Question(props) {
-    const [name, setName] = useState();
-
+    const [name, setName] = useState(props.question.statement);
+    const [isAdded, setIsAdded] = useState(0);
     const [question, setQuestion] = useState(props.question);
-
-
 
     function changeName(value) {
         setName(value.value)
@@ -69,18 +66,20 @@ function Question(props) {
         return props.onDeleteOption(questionIndex,optionIndex)
     }
 
-    const animationProps = useSpring({
-        to: { opacity: 1, transform: scale(1), },
-        from: { opacity: 0, transform: scale(0.95),},
-        config: { duration: 250 },
-    })
 
 
-    return (<animated.div style={{opacity: animationProps.opacity, transform: animationProps.transform}} className={"question-body"}>
+    const [style, animate] = useSpring(()=>({
+        to: { opacity: 1, },
+        from: { opacity: 0,},
+        config: { duration: 150 },
+    }))
+
+
+    return (<animated.div style={{opacity: style.opacity}} className={"question-body"}>
 
         <div  className={"question-heading"}>
             <div>
-                <EditText defaultValue={name} placeholder={props.question.statement} onSave={changeName} className={"question-title"}/>
+                <EditText defaultValue={name} placeholder={"Untitled Question"} onSave={changeName} className={"question-title"}/>
             </div>
             <div className={"dropdown-questions"}>
                 <AnimatedDropdown id={props.id} switch={onSwitch} text={props.question.statement} selected={selected} onSelection={HandleSelection}/>
@@ -96,5 +95,6 @@ function Question(props) {
         </div>
     </animated.div>);
 }
+
 
 export default Question;

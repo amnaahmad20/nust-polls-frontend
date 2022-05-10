@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Plus} from 'lucide-react'
 import './QuestionsTab.css'
 import {EditText} from 'react-edit-text';
@@ -29,13 +29,12 @@ class MCQ {
 class Option {
     constructor(text = "Option",optionNumber) {
         this.id = uuid()
-        console.log(optionNumber);
         this.text = text + " " + (optionNumber)
     }
 }
 
 class TextBased {
-    constructor(statement = "Untitled Question") {
+    constructor(statement = "") {
         this.id = uuid()
         this.type = "TextBased"
         this.statement = statement
@@ -62,7 +61,6 @@ function QuestionsTab(props) {
 
 
     function changeName(value) {
-        console.log(value);
         setName(value.value)
     }
 
@@ -72,8 +70,6 @@ function QuestionsTab(props) {
 
     function rename(text, index) {
         questions[index].statement = text
-        console.log("Renamed questions")
-        console.log(questions)
         return questions[index]
     }
 
@@ -97,12 +93,9 @@ function QuestionsTab(props) {
 
     function deleteOption(questionIndex, optionIndex) {
         if (questions[questionIndex].type === "MCQ") {
-            console.log(questions[questionIndex].type);
-            console.log(optionIndex);
             questions[questionIndex].options = questions[questionIndex].options.filter(option => {
                 return questions[questionIndex].options.indexOf(option) !== optionIndex
             })
-            console.log(questions[questionIndex].options);
         }
 
         return questions[questionIndex].options
@@ -119,21 +112,43 @@ function QuestionsTab(props) {
         setQuestions([...newQuestions])
     }
 
+    const ref = useRef(null);
+    const [style, animate] = useSpring(() => ({ height: "0px" }), []);
+    const [toggle, setToggle] = useState(false);
+
+    useEffect(() => {
+        animate({
+            height: ( ref.current.offsetHeight : 0) + "px"
+        });
+    }, [animate, ref, toggle]);
+
+    useEffect(() => {
+        setTimeout(() => setToggle(!toggle), 0);
+    }, [toggle, setToggle]);
 
 
-    return (<div>
-            <span className={"floating-action"}>
+
+    return (<div  >
+            <span  className={"floating-action"}>
                 <Plus onClick={addQuestion} color={"#085B91"} strokeWidth={"4"} size={"24"}/>
             </span>
-            <div className={"poll-header"} >
 
-            <EditText defaultValue={name} placeholder={"Poll Name"} onSave={changeName} className={"poll-name"}/>
-            <EditText defaultValue={description} placeholder={"Poll Description"} className={"poll-desc"}/>
+        <animated.div style={{
+            overflow: "hidden",
+            width: "100%",
+            ...style
+        }} >
+            <div ref={ref} className={"poll-header"} >
+            <form>
+            <EditText required defaultValue={name} placeholder={"Poll Name"} onSave={changeName} className={"poll-name"}/>
+            <EditText required defaultValue={description} placeholder={"Poll Description"} className={"poll-desc"}/>
+            </form>
             {questions.length > 0 && questions.map((question) => (
                 <Question key={question.id} onAddOption={addOption} onDeleteOption={deleteOption}
                           onDelete={deleteQuestion} id={questions.indexOf(question)} question={question} rename={rename}
                           switch={switchHandler}/>))}
             </div>
+        </animated.div>
     </div>);
 }
 
