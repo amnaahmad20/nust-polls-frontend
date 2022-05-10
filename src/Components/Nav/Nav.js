@@ -1,15 +1,26 @@
-import React from 'react'
-import "./nav.css"
-import pollsLogo from "../../img/logo.svg"
-import {useNavigate} from "react-router-dom";
+import React from 'react';
+import './nav.css';
+import pollsLogo from '../../img/logo.svg';
+import { useNavigate } from 'react-router-dom';
 
 function Nav(props) {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    return (<div className='nav'>
-        <img src={pollsLogo} alt="logo"/>
-        {props.isLoggedIn && <button className='logout reg-button' onClick={() => navigate("/")}>Log Out</button>}
-    </div>)
+  const logoutHandler = () => {
+    localStorage.removeItem('token');
+    navigate('/login');
+  };
+
+  return (
+    <div className="nav">
+      <img src={pollsLogo} alt="logo" />
+      {props.isLoggedIn && (
+        <button className="logout reg-button" onClick={logoutHandler}>
+          Log Out
+        </button>
+      )}
+    </div>
+  );
 }
 
-export default Nav
+export default Nav;
