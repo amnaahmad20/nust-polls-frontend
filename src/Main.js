@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import './css/main.css';
 import eye from './img/eye.png';
 import axios from './axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 function Main() {
   const [username, setUsername] = useState('');
@@ -43,6 +42,7 @@ function Main() {
             id="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            required
           />
           <div className="password">
             <input
@@ -53,6 +53,7 @@ function Main() {
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
             />
             <div className="eye">
               <img
@@ -66,7 +67,7 @@ function Main() {
           <button type="submit" className="btn btn-dark dark-button">
             Sign In
           </button>
-          <a
+          <Link
             style={{
               display: 'block',
               cursor: 'pointer',
@@ -74,10 +75,10 @@ function Main() {
               color: '#063651',
               textDecoration: 'underline',
             }}
-            href="#"
+            to="/forgotpassword"
           >
             Forgot Password?
-          </a>
+          </Link>
         </form>
       </div>
     </section>

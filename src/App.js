@@ -5,9 +5,11 @@ import Dashboard from './Components/Dashboard/Dashboard';
 import './css/App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import CreatePolls from './Components/Creation/CreatePolls';
 import ExistingPolls from './Components/Existing/ExistingPolls';
 import jwtDecode from 'jwt-decode';
+import ForgotPassword from './Components/Forms/ForgotPassword';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -42,6 +44,15 @@ function App() {
               <div className="App">
                 <Nav />
                 <Main />
+              </div>
+            }
+          ></Route>
+          <Route
+            path="/forgotpassword"
+            element={
+              <div className="App">
+                <Nav />
+                <ForgotPassword />
               </div>
             }
           ></Route>
