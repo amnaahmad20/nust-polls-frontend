@@ -10,6 +10,7 @@ import CreatePolls from './Components/Creation/CreatePolls';
 import ExistingPolls from './Components/Existing/ExistingPolls';
 import jwtDecode from 'jwt-decode';
 import ForgotPassword from './Components/Forms/ForgotPassword';
+import ResetPassword from './Components/Forms/ResetPassword';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -53,6 +54,15 @@ function App() {
               <div className="App">
                 <Nav />
                 <ForgotPassword />
+              </div>
+            }
+          ></Route>
+          <Route
+            path="/resetpassword/:resetToken"
+            element={
+              <div className="App">
+                <Nav />
+                <ResetPassword />
               </div>
             }
           ></Route>

@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import '../../css/main.css';
 import axios from '../../axios';
-import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 function ForgotPassword() {
   const [email, setEmail] = useState('');
-  const navigate = useNavigate();
 
   const forgotPasswordHandler = async (e) => {
     e.preventDefault();
