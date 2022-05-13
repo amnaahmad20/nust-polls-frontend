@@ -5,9 +5,11 @@ import NewPoll from '../Existing/NewPoll/NewPoll';
 import OldPoll from '../Existing/OldPoll/OldPoll';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { useStateValue } from '../../StateProvider';
 
 function ExistingPolls(props) {
   const { adminId } = useParams();
+  const [{ user }, dispatch] = useStateValue();
 
   //DUMMY URL
   const url =
@@ -42,7 +44,12 @@ function ExistingPolls(props) {
   return (
     <div className={'main'}>
       <div className={'header'}>
-        <h3>{props.name}'s Polls</h3>
+        <h3>
+          {user?.admin
+            ? `${user.admin.firstName} ${user.admin.lastName}`
+            : `${user?.firstName} ${user?.lastName}`}
+          's Polls
+        </h3>
         <button className={'sort'}>
           {' '}
           <SortDesc color={'#085B91'} size={'19'} strokeWidth={'1'} /> Sort By

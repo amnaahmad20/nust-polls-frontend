@@ -4,11 +4,13 @@ import eye from './img/eye.png';
 import axios from './axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { useStateValue } from './StateProvider';
 
 function Main() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [inputType, setInputType] = useState('password');
+  const [{ user }, dispatch] = useStateValue();
   const navigate = useNavigate();
 
   const showPassword = () => {
@@ -21,6 +23,10 @@ function Main() {
       const res = await axios.post('/user/login', { username, password });
       toast.success(res.data.message);
       localStorage.setItem('token', res.data.token);
+      dispatch({
+        type: 'SET_USER',
+        user: res.data.data,
+      });
       setUsername('');
       setPassword('');
       res.data.data.admin ? navigate('/dash') : navigate('/student');
