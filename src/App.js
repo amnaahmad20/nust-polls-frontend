@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import './css/App.css';
+import { Route, Routes, useLocation } from 'react-router-dom';
+import jwtDecode from 'jwt-decode';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Main from './Main';
 import Nav from './Components/Nav/Nav';
 import Dashboard from './Components/Dashboard/Dashboard';
-import './css/App.css';
-import { Route, Routes, useLocation } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import CreatePolls from './Components/Creation/CreatePolls';
 import ExistingPolls from './Components/Existing/ExistingPolls';
-import jwtDecode from 'jwt-decode';
 import ForgotPassword from './Components/Forms/ForgotPassword';
 import ResetPassword from './Components/Forms/ResetPassword';
 
