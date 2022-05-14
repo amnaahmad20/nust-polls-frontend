@@ -1,6 +1,7 @@
 import React from 'react';
 import './ResponseTab.css';
 import DoughnutChart from '../../../../Charts/DoughnutChart';
+import BarChart from '../../../../Charts/BarChart';
 
 function ResponseTab(props) {
   return (
@@ -19,6 +20,19 @@ function ResponseTab(props) {
             'Other ',
           ]}
           dataSet={[100, 100, 100, 100, 100, 100, 100, 100]}
+        />
+        <BarChart
+          labelSet={[
+            'Maybelline',
+            'Huda',
+            'Faiza Beauty Cream',
+            'Miss Rose',
+            'Garnier',
+            'Oriflame',
+            'Rivaj UK',
+            'Other ',
+          ]}
+          dataSet={[20, 100, 60, 70, 100, 80, 65, 40]}
         />
       </div>
     </div>
