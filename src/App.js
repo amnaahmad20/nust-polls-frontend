@@ -4,7 +4,6 @@ import {
   BrowserRouter as Router,
   Route,
   Routes,
-  Navigate,
 } from 'react-router-dom';
 import jwtDecode from 'jwt-decode';
 import { ToastContainer } from 'react-toastify';
@@ -20,7 +19,6 @@ import { useStateValue } from './StateProvider';
 
 function App() {
   const [{ user }, dispatch] = useStateValue();
-  console.log(user);
 
   useEffect(() => {
     if (localStorage.getItem('token')) {

@@ -4,7 +4,7 @@ import pollsLogo from '../../img/logo.svg';
 import { useNavigate } from 'react-router-dom';
 import { useStateValue } from '../../StateProvider';
 
-function Nav(props) {
+function Nav() {
   const [{ user }, dispatch] = useStateValue();
   const navigate = useNavigate();
 
