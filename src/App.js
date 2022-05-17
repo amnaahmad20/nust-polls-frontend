@@ -3,7 +3,6 @@ import Main from './Main';
 import Nav from './Components/Nav/Nav';
 import Dashboard from './Components/Dashboard/Dashboard';
 import './css/App.css';
-import {Route, Routes, useLocation} from 'react-router-dom';
 import {ToastContainer} from 'react-toastify';
 import './css/App.css';
 import {

@@ -36,7 +36,7 @@ function OldPoll(props) {
     }
 
     async function deleteHandler() {
-        await axios.post('http://localhost:9000/polls/delete/' + props.id, {},{
+        await axios.delete('http://localhost:9000/polls/delete/' + props.id, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
             }
