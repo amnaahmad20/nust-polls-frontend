@@ -11,6 +11,7 @@ import styled, {keyframes} from "styled-components";
 import {Trash} from 'lucide-react'
 import {useSpring,animated} from "react-spring";
 import {scale} from "react-animations/lib/utils";
+import axios, {Axios} from "axios";
 
 const FadeIn = styled.div`
       animation: 0.5s ${keyframes(fadeIn)};
@@ -32,20 +33,6 @@ function Question(props) {
         setSelected(val)
     }
 
-
-    const url = ""
-
-    // useEffect(() => {
-    //     return () => {
-    //         fetch(url, {
-    //             method: "POST", headers: {
-    //                 'Content-Type': 'application/json', boyd: JSON.stringify({
-    //                     name: name.value,
-    //                 })
-    //             }
-    //         })
-    //     };
-    // }, [name]);
 
 
     function deleteHandler() {
@@ -75,7 +62,10 @@ function Question(props) {
     }))
 
 
+
+
     return (<animated.div style={{opacity: style.opacity}} className={"question-body"}>
+
 
         <div  className={"question-heading"}>
             <div>
@@ -93,6 +83,8 @@ function Question(props) {
         <div className={"question-delete-wrapper"} >
             <Trash className={"question-delete-icon"} strokeWidth={2} onClick={()=>deleteHandler()} size={35}  />
         </div>
+
+
     </animated.div>);
 }
 

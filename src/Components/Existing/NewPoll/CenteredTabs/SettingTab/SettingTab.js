@@ -75,17 +75,18 @@ function SettingTab(props) {
 
     return (
         <div className={"settings-body"}>
-            <div className={"deadline"}>
+            <div className={"deadline deadline-first "}>
                 <div className={"date-desc"} >
                     <h6>Poll Posting & Closing Date</h6>
                     <p> Select When Poll is posted and when it stops accepting responses </p>
                 </div>
-                <div>
+                <div className={"date-selection"} >
                     <div className={"date-row"} >
                         <h6>Poll Posting Date</h6>
                         <h6>Poll Closing Date</h6>
                     </div>
-                    <div className={"date-row"} >
+                    <div className={"date-row "} >
+                    <div className={"date-options"} >
 
                     <Flatpickr
                         options={{
@@ -94,6 +95,7 @@ function SettingTab(props) {
                             altFormat: "F j, Y",
                             dateFormat: "Y-m-d",
                             altInputClass: "input-button",
+                            disableMobile: true,
                             "plugins": [new rangePlugin({input: endDate})],
                         }}
                         value={date}
@@ -120,9 +122,7 @@ function SettingTab(props) {
                     />
 
                     </div>
-
-
-
+                    </div>
                 </div>
             </div>
             <div className={"deadline"}>
@@ -140,6 +140,7 @@ function SettingTab(props) {
                             minTime: "00:00",
                             dateFormat: "h:i K",
                             altInput: true,
+                            disableMobile: true,
                             altInputClass: "input-button",
                             minuteIncrement: 1,
                         }}
@@ -169,6 +170,7 @@ function SettingTab(props) {
                             enableTime: true,
                             dateFormat: "h:i K",
                             altInput: true,
+                            disableMobile: true,
                             altInputClass: "input-button",
                             minuteIncrement: 1,
                         }}

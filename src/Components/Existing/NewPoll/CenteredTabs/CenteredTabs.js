@@ -28,9 +28,13 @@ const Tab = styled(TabUnstyled)`
   justify-content: center;
   z-index: 10;
   transition: 0.3s;
-  
 
-  &.${tabUnstyledClasses.selected} {
+  @media only screen and (max-width: 400px) {
+    flex-direction: column;
+    padding: 6px 16px;
+  }
+
+    &.${tabUnstyledClasses.selected} {
     transition: 0.3s;
     color: white;
   }
@@ -55,6 +59,14 @@ const TabsList = styled(TabsListUnstyled)`
   align-items: center;
   justify-content: center;
   align-content: space-between;
+  
+  @media only screen and (max-width: 400px) {
+    min-width: 150px;
+    flex-direction: column;
+    text-align: center;
+  }
+
+
 `;
 
 function first(){
@@ -92,7 +104,7 @@ export default function CenteredTabs() {
             </div>
             <TabPanel hidden={value !== 1} value={value} index={0} >
 
-                <div   className={"create-container"} >
+                <div className={"create-container"} >
                     <QuestionsTab/>
                 </div>
                 </TabPanel>

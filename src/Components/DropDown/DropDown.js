@@ -11,7 +11,6 @@ export function DropDown(props) {
 
     const [name, setName] = useState("");
     const [open, setOpen] = useState(false);
-    const url = 'https://d503c9b2-a0ea-4d27-829e-46af23e234c8.mock.pstmn.io/10/polls/rename'
 
     function handle(e) {
         const newName = e.target.value
@@ -20,7 +19,7 @@ export function DropDown(props) {
 
     function onRename(e) {
         e.preventDefault()
-        props.renameHandler(url,name)
+        props.renameHandler(name)
         setName("")
     }
 
@@ -34,8 +33,13 @@ export function DropDown(props) {
         setOpen(false)
     }
 
+    function onDelete(e) {
+        e.preventDefault()
+        props.deleteHandler()
+    }
+
     return (<div id="myDropdown" className={"dropdown-content"}>
-        <a > Remove <Trash size={"10"}/> </a>
+        <a  onClick={onDelete} > Remove <Trash size={"10"}/> </a>
         <a onClick={() => setOpen(o => !o)} > Rename <Type size={"10"}/> </a>
         <Popup open={open} onClose={closeModal} closeOnEscape closeOnDocumentClick position="right center">
             {/*<div className={"overlay"} >*/}

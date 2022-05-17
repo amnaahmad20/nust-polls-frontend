@@ -18,6 +18,7 @@
     "jquery": "^3.6.0",
     "jwt-decode": "^3.1.2",
     "lucide-react": "^0.19.0",
+    "moment": "^2.29.3",
     "mui": "^0.0.1",
     "multiselect-react-dropdown": "^2.0.21",
     "path": "^0.12.7",

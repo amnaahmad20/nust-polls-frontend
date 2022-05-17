@@ -16,22 +16,36 @@ function OldPoll(props) {
 
     const [listOpen, setListOpen] = useState(false);
 
+    const [name, setName] = useState(props.text);
 
-    function renameHandler(url,name) {
-        const data = {
-            name: name,
-            id: props.id
-        }
-        axios.post(url,data).then(response => {
-            console.log(data);
-            console.log(response.data);
+    async function renameHandler(newName) {
+        await axios.post('http://localhost:9000/polls/edit/' + props.id, {poll_name: newName},{
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            }
+        }).then(res => {
+            console.log(res);
+            setName(newName)
         }).catch(error=>{
-            console.log(error);
+            console.log(error.message);
         })
     }
 
     function toggleList() {
         setListOpen(!listOpen);
+    }
+
+    async function deleteHandler() {
+        await axios.post('http://localhost:9000/polls/delete/' + props.id, {},{
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            }
+        }).then(res => {
+            console.log(res);
+            props.deletePoll(props.id);
+        }).catch(error=>{
+            console.log(error.message);
+        })
     }
 
     return (
@@ -45,11 +59,19 @@ function OldPoll(props) {
                 <button onClick={toggleList}>
                     <MoreHorizontal color={"#085B91"} strokeWidth={"2"} size={"17"}/>
                 </button>
-                {listOpen && (<FadeIn><DropDown closeDropDown={toggleList} oldName={props.text} renameHandler={renameHandler} /></FadeIn>)}
+                {listOpen && (<FadeIn><DropDown closeDropDown={toggleList} oldName={props.text} renameHandler={renameHandler} deleteHandler={deleteHandler} /></FadeIn>)}
             </div>
             <div className={"text"}>
-                <h6>{props.text}</h6>
-                <p>Created On : {props.date}</p>
+                <h6>{name}</h6>
+                <p>Created On : {new Date(props.date).toLocaleDateString(
+                    'en-gb',
+                    {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                        timeZone: 'utc'
+                    }
+                )}</p>
             </div>
         </div>);
 }

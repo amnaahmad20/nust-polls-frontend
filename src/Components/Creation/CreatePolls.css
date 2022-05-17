@@ -42,3 +42,45 @@
     transition: 0.3s;
     z-index: 0;
 }
+
+@media only screen and (max-width: 450px) {
+    .create-container {
+        margin: 0;
+        border-radius: 0;
+        width: 100%;
+    }
+
+
+}
+
+@media only screen and (max-width: 400px) {
+
+    .tabs{
+        width: 100%;
+        height: 40px;
+    }
+
+    .tabs button{
+        align-items: center;
+    }
+
+    .tab-button{
+        width: 95%;
+    }
+    .first{
+        transform: translateX(0) translateY(-44px);
+    }
+
+    .second{
+        transform: translateX(0) translateY(0);
+    }
+
+    .third{
+        transform: translateX(0) translateY(44px);
+    }
+
+    .create-container{
+        margin-top: 125px;
+    }
+
+}

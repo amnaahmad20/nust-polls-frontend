@@ -30,7 +30,7 @@
     animation: AnimatedDropdowndisappear 0.3s forwards;
 }
 
-.dropdown-wrapper{
+.dropdown-wrapper {
     position: relative;
 }
 
@@ -49,35 +49,35 @@
 
 .AnimatedDropdownStyles > * {
     white-space: nowrap;
-    color: #063651 ;
+    color: #063651;
     transition: 0.3s;
-    border-radius: 7px ;
+    border-radius: 7px;
     padding: 6px 20px;
 
 }
 
 .AnimatedDropdownStyles > *:hover {
     background-color: #cfdce6;
-    color: #063651 ;
+    color: #063651;
 }
 
 .selected {
     background-color: #e1e9f0;
-    color: #085B91 ;
+    color: #085B91;
     font-weight: 600;
 }
 
 .AnimatedDropdownButton {
     background-color: white;
-    border: none ;
+    border: none;
     box-shadow: -3px 4px 40px rgb(6, 54, 81, 0.1);
     transition: 0.3s;
     padding: 8px 15px;
-    border-radius: 7px ;
-    color: #085B91 ;
+    border-radius: 7px;
+    color: #085B91;
     font-size: 16px;
     font-weight: 300;
-    width: 225px ;
+    width: 225px;
     height: 45px;
     cursor: pointer;
     display: flex;
@@ -86,12 +86,27 @@
     z-index: 100;
 }
 
-.AnimatedDropdownButton div > *{
+.AnimatedDropdownButton div > * {
     margin-right: 15px;
 }
 
 .AnimatedDropdownButton:hover {
     box-shadow: -3px 4px 40px rgb(6, 54, 81, 0.2);
+}
+
+@media only screen and (max-width: 752px) {
+    .AnimatedDropdownStyles {
+        width: 100%;
+    }
+
+    .dropdown-wrapper{
+        width: 100%;
+    }
+
+    .AnimatedDropdownButton {
+        width: 100%;
+        min-width: 100%;
+    }
 }
 
 

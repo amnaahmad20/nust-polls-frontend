@@ -1,68 +1,78 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import './ExistingPolls.css';
-import { SortDesc } from 'lucide-react';
+import {SortDesc} from 'lucide-react';
 import NewPoll from '../Existing/NewPoll/NewPoll';
 import OldPoll from '../Existing/OldPoll/OldPoll';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 
 function ExistingPolls(props) {
-  const { adminId } = useParams();
+    const {adminId} = useParams();
 
-  //DUMMY URL
-  const url =
-    'https://d503c9b2-a0ea-4d27-829e-46af23e234c8.mock.pstmn.io/10/polls';
+    //DUMMY URL
+    const url =
+        'http://localhost:9000/polls/' + localStorage.getItem('adminId');
 
-  const [pollsData, setPollsData] = useState([]);
-  const [loading, setLoading] = useState(false);
+    const [pollsData, setPollsData] = useState([]);
+    const [loading, setLoading] = useState(false);
 
-  useEffect(
-    function () {
-      const fetchData = async () => {
-        try {
-          axios.get(url).then((response) => {
-            setPollsData(response.data);
-            console.log(response.data);
-          });
-        } catch (error) {
-          console.error(error);
-        }
-        setLoading(false);
-      };
+    useEffect(
+        function () {
+            const fetchData = async () => {
+                try {
+                    axios.get(url, {
+                        headers: {
+                            Authorization: `Bearer ${localStorage.getItem('token')}`,
+                            'Content-Type': 'application/json'
+                        }
+                    }).then((response) => {
+                        setPollsData(response.data);
+                        console.log(response.data);
+                    });
+                } catch (error) {
+                    console.error(error);
+                }
+                setLoading(false);
+            };
 
-      fetchData();
-      return {
-        pollsData,
-        loading,
-      };
-    },
-    [url]
-  );
+            fetchData();
+            return {
+                pollsData,
+                loading,
+            };
+        },
+        []
+    );
 
-  return (
-    <div className={'main'}>
-      <div className={'header'}>
-        <h3>{props.name}'s Polls</h3>
-        <button className={'sort'}>
-          {' '}
-          <SortDesc color={'#085B91'} size={'19'} strokeWidth={'1'} /> Sort By
-        </button>
-      </div>
+    function deletePoll(id) {
+        setPollsData(pollsData.filter(poll => poll._id !== id))
+    }
 
-      <div className={'polls'}>
-        <NewPoll />
-        {pollsData.length > 0 &&
-          pollsData.map((poll) => (
-            <OldPoll
-              id={poll.key}
-              key={poll.key}
-              text={poll.text}
-              date={poll.date}
-            />
-          ))}
-      </div>
-    </div>
-  );
+    return (
+        <div className={'main'}>
+            <div className={'header'}>
+                <h3>{props.name}'s Polls</h3>
+                <button className={'sort'}>
+                    {' '}
+                    <SortDesc color={'#085B91'} size={'19'} strokeWidth={'1'}/> Sort By
+                </button>
+            </div>
+
+            <div className={'polls'}>
+                <NewPoll/>
+                {pollsData.length > 0 &&
+                    pollsData.map((poll) => (
+                        <OldPoll
+                            id={poll._id}
+                            key={poll._id}
+                            text={poll.poll_name}
+                            date={poll.created_on}
+                            deletePoll={deletePoll}
+                        />
+                    ))}
+            </div>
+        </div>
+    );
 }
 
 export default ExistingPolls;

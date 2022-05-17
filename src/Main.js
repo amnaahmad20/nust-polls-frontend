@@ -21,6 +21,8 @@ function Main() {
       const res = await axios.post('/user/login', { username, password });
       toast.success(res.data.message);
       localStorage.setItem('token', res.data.token);
+      localStorage.setItem('adminId',res.data.data.admin._id)
+      // localStorage.setItem('admin', res.data.admin);
       setUsername('');
       setPassword('');
       res.data.data.admin ? navigate('/dash') : navigate('/student');
