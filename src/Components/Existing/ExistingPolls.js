@@ -75,6 +75,7 @@ function ExistingPolls(props) {
                             text={poll.poll_name}
                             date={poll.created_on}
                             deletePoll={deletePoll}
+                            published={poll.published}
                         />
                     ))}
             </div>

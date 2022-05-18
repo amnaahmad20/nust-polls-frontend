@@ -16,17 +16,19 @@ function MultipleChoice(props) {
         setOptions([...newOptions])
     }
 
-    function renameOption(index,text) {
-        options[index].text = text
-        return options[index]
+    function renameOption(optionIndex,text) {
+        props.onRenameOption(optionIndex,text)
+        options[optionIndex].text = text
+        return options[optionIndex]
     }
 
     return (
         <div>
             {options && options.length > 0 && options.map((option) => (
-                <Choice index={options.indexOf(option)}  onRename={renameOption} onDelete={deleteOption} length={options.length} option={option} key={option.id} value={option.text} name={"id"}/>
+                <Choice published={props.published} index={options.indexOf(option)}  onRename={renameOption} onDelete={deleteOption} length={options.length} option={option} key={option.id} value={option.text} name={"id"}/>
             ))}
-            <AddChoice onAddOption={addOption} />
+            { !props.published && <AddChoice onAddOption={addOption} /> }
+
         </div>
     );
 }

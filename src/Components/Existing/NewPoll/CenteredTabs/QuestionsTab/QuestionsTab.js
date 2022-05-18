@@ -11,12 +11,12 @@ import axios from "axios";
 class MCQ {
 
 
-    constructor(statement = "Untitled Question") {
+    constructor(statement = "Untitled Question", options = [new Option("Option", 1)]) {
         this.optionNumber = 2
         this.id = uuid();
         this.type = "MCQ"
         this.statement = statement
-        this.options = [new Option("Option", 1)]
+        this.options = options
     }
 
     get number() {
@@ -29,7 +29,7 @@ class MCQ {
 class Option {
     constructor(text = "Option", optionNumber) {
         this.id = uuid()
-        this.text = text + " " + (optionNumber)
+        optionNumber ? this.text = text + " " + (optionNumber) : this.text = text
     }
 }
 
@@ -70,9 +70,11 @@ function QuestionsTab(props) {
     //
     const [mcq, setMcq] = useState([]);
 
-    const [textBased, setTextBased] = useState([questions[0].statement]);
+    const [textBased, setTextBased] = useState(questions[0]?[questions[0].statement]:[]);
 
     const [isChanged, setIsChanged] = useState(false);
+
+    const [isPublished, setIsPublished] = useState(false);
 
     const mcqRef = useRef(mcq);
     mcqRef.current = mcq;
@@ -98,7 +100,44 @@ function QuestionsTab(props) {
     const [toggle, setToggle] = useState(false);
 
     const url = 'http://localhost:9000/polls/edit/' + localStorage.getItem('pollId');
+    const fetchUrl = 'http://localhost:9000/polls/ques/' + localStorage.getItem('pollId');
     const editQuestionUrl = 'http://localhost:9000/polls/edit-ques/' + localStorage.getItem('questionsId');
+
+    const [loading, setLoading] = useState(true);
+
+    // const [isCreated, setIsCreated] = useState(props.isCreeated);
+
+    useEffect(
+        function () {
+            const fetchData = async () => {
+                try {
+                    await axios.get(fetchUrl, {
+                        headers: {
+                            Authorization: `Bearer ${localStorage.getItem('token')}`,
+                            'Content-Type': 'application/json'
+                        }
+                    }).then((response) => {
+                        // setPollsData(response.data);
+                        console.log("this is fetch response.data");
+                        console.log(response.data);
+                        setName(response.data.poll_name)
+                        setDescription(response.data.description)
+                        setQuestions(fetchQuestions(response.data.questions[0].mcq?response.data.questions[0].mcq:[], response.data.questions[0].text_based?response.data.questions[0].text_based:[]))
+                    });
+                } catch (error) {
+                    console.error(error);
+                }
+                setLoading(false);
+            };
+            // if(isCreated) {
+                fetchData();
+            // }
+            return {
+                loading,
+            };
+        },
+        []
+    );
 
     useEffect(() => {
         animate({
@@ -112,10 +151,10 @@ function QuestionsTab(props) {
 
     useEffect(() => {
         if (isChanged) {
-            const timer = setTimeout(() => {
-                console.log('This will run after 5 second!')
-                axios.post(editQuestionUrl, {
-                    mcq: mcqRef.current, text_based: textBasedRef.current
+            const timer = setTimeout(async () => {
+                console.log('This will send a request after 2 seconds!')
+                await axios.post(editQuestionUrl, {
+                    poll: localStorage.getItem('pollId'), mcq: mcqRef.current, text_based: textBasedRef.current
                 }, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -123,16 +162,17 @@ function QuestionsTab(props) {
                 }).then(res => {
                     console.log("sending request")
                     console.log(res);
+                    // if (!isCreated) setIsCreated(true)
                     setIsChanged(false)
                 }).catch(err => console.log(err.message))
-            }, 5000);
+            }, 2000);
             return () => clearTimeout(timer);
         }
     }, [isChanged])
 
     async function onSubmit() {
         await axios.post(url, {
-            mcq: mcq, text_based: textBased
+            poll: localStorage.getItem('pollId'), mcq: mcq, text_based: textBased
         }).then(res => {
             console.log("sending change desc request")
             console.log(res);
@@ -205,17 +245,29 @@ function QuestionsTab(props) {
             questions[index].options = ([...questions[index].options, new Option(option, questions[index].number)])
         }
         setMcq(getMCQ(questions))
+        setTextBased(getTextBased(questions))
         setIsChanged(true)
         return questions[index]
     }
 
-    function deleteOption(questionIndex, optionIndex) {
+    function renameOption(index, optionIndex,text) {
+        if (questions[index].type === "MCQ") {
+            questions[index].options[optionIndex].text = text
+        }
+        setMcq(getMCQ(questions))
+        setTextBased(getTextBased(questions))
+        setIsChanged(true)
+        return questions[index].options[optionIndex]
+    }
+
+        function deleteOption(questionIndex, optionIndex) {
         if (questions[questionIndex].type === "MCQ") {
             questions[questionIndex].options = questions[questionIndex].options.filter(option => {
                 return questions[questionIndex].options.indexOf(option) !== optionIndex
             })
         }
         setMcq(getMCQ(questions))
+        setTextBased(getTextBased(questions))
         setIsChanged(true)
         return questions[questionIndex].options
     }
@@ -224,6 +276,7 @@ function QuestionsTab(props) {
         const newQuestions = [...questions, new TextBased()]
         setQuestions([...questions, new TextBased()])
         setTextBased(getTextBased(newQuestions))
+        setMcq(getMCQ(newQuestions))
         setIsChanged(true)
     }
 
@@ -239,8 +292,9 @@ function QuestionsTab(props) {
     }
 
 
-    function getMCQ() {
+    function getMCQ(questions) {
         const newMcq = []
+        console.log(questions);
         questions.forEach(function (item, index) {
             if (item.type === "MCQ") {
                 let mcqOptions = [];
@@ -259,6 +313,7 @@ function QuestionsTab(props) {
 
     function getTextBased(questions) {
         const newTextBased = []
+        console.log(questions);
         questions.forEach(function (item, index) {
             if (item.type === "TextBased") {
                 newTextBased.push({index: index, statement: item.statement})
@@ -267,6 +322,26 @@ function QuestionsTab(props) {
         console.log("newTextBased");
         console.log(newTextBased);
         return newTextBased
+    }
+
+    function fetchQuestions(mcq, textBased) {
+        const newQuestions = []
+
+        mcq.forEach(m => {
+            const newOptions = []
+            m.options.forEach(o => {
+                newOptions.push(
+                    new Option(o)
+                )
+            })
+            newQuestions[m.index] = new MCQ(m.statement, newOptions)
+        })
+
+        textBased.forEach(t => {
+            newQuestions[t.index] = new TextBased(t.statement)
+        })
+
+        return newQuestions
     }
 
     // function getJson() {
@@ -346,27 +421,29 @@ function QuestionsTab(props) {
 
 
     return (<div>
-            <span className={"floating-action"}>
+        {!isPublished && <span className={"floating-action"}>
                 <Plus onClick={addQuestion} color={"#085B91"} strokeWidth={"4"} size={"24"}/>
-            </span>
+            </span>}
 
-        <button onClick={onSubmit}> test submit</button>
+
+        {/*<button onClick={onSubmit}> test submit</button>*/}
 
         <animated.div style={{
             overflow: "hidden", width: "100%", ...style
         }}>
-            <div ref={ref} className={"poll-header"}>
+            <div ref={ref} className={!isPublished? "poll-header" : "poll-header read-only" }>
                 <form>
                     <EditText required defaultValue={name} placeholder={"Poll Name"} onSave={changeName}
-                              className={"poll-name"}/>
+                              className={"poll-name"} readonly={isPublished}/>
                     <EditText required defaultValue={description} placeholder={"Poll Description"} onSave={changeDesc}
-                              className={"poll-desc"}/>
+                              className={"poll-desc"} readonly={isPublished}/>
                 </form>
                 {questions.length > 0 && questions.map((question) => (
                     <Question key={question.id} onAddOption={addOption} onDeleteOption={deleteOption}
+                              onRenameOption={renameOption}
                               onDelete={deleteQuestion} id={questions.indexOf(question)} question={question}
                               rename={rename}
-                              switch={switchHandler}/>))}
+                              switch={switchHandler} published={isPublished}/>))}
             </div>
         </animated.div>
     </div>);

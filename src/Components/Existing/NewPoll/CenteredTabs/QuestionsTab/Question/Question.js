@@ -49,6 +49,10 @@ function Question(props) {
         return question.options[question.options.length-1]
     }
 
+    function renameOptionHandler(optionIndex,text){
+        return props.onRenameOption(props.id,optionIndex,text)
+    }
+
     function deleteOptionHandler(questionIndex,optionIndex) {
         return props.onDeleteOption(questionIndex,optionIndex)
     }
@@ -69,20 +73,26 @@ function Question(props) {
 
         <div  className={"question-heading"}>
             <div>
-                <EditText defaultValue={name} placeholder={"Untitled Question"} onSave={changeName} className={"question-title"}/>
+                <EditText readonly={props.published} defaultValue={name} placeholder={"Untitled Question"} onSave={changeName} className={"question-title"}/>
             </div>
-            <div className={"dropdown-questions"}>
+            { !props.published &&              <div className={"dropdown-questions"}>
                 <AnimatedDropdown id={props.id} switch={onSwitch} text={props.question.statement} selected={selected} onSelection={HandleSelection}/>
-            </div>
+            </div>}
+
         </div>
         <FadeIn>
             <div className={"question-details"}>
-                {selected === "TextBased" ? <ShortText/> : <MultipleChoice onDeleteOption={deleteOptionHandler} onAddOption={addOptionHandler} id={props.id} question={question} />}
+                {selected === "TextBased" ? <ShortText/> : <MultipleChoice published={props.published}
+                                                                           onDeleteOption={deleteOptionHandler}
+                                                                           onAddOption={addOptionHandler}
+                                                                           onRenameOption={renameOptionHandler}
+                                                                           id={props.id} question={question} />}
             </div>
         </FadeIn>
-        <div className={"question-delete-wrapper"} >
+        {!props.published && <div className={"question-delete-wrapper"} >
             <Trash className={"question-delete-icon"} strokeWidth={2} onClick={()=>deleteHandler()} size={35}  />
-        </div>
+        </div>}
+
 
 
     </animated.div>);

@@ -6,27 +6,29 @@ import {DropDown} from "../../DropDown/DropDown";
 import styled, {keyframes} from "styled-components";
 import {fadeIn} from "react-animations";
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 const FadeIn = styled.div`
-      animation: 0.25s ${keyframes(fadeIn)};
-    `;
+  animation: 0.25s ${keyframes(fadeIn)};
+`;
 
 function OldPoll(props) {
 
+    const navigate = useNavigate();
 
     const [listOpen, setListOpen] = useState(false);
 
     const [name, setName] = useState(props.text);
 
     async function renameHandler(newName) {
-        await axios.post('http://localhost:9000/polls/edit/' + props.id, {poll_name: newName},{
+        await axios.post('http://localhost:9000/polls/edit/' + props.id, {poll_name: newName}, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
             }
         }).then(res => {
             console.log(res);
             setName(newName)
-        }).catch(error=>{
+        }).catch(error => {
             console.log(error.message);
         })
     }
@@ -43,9 +45,18 @@ function OldPoll(props) {
         }).then(res => {
             console.log(res);
             props.deletePoll(props.id);
-        }).catch(error=>{
+        }).catch(error => {
             console.log(error.message);
         })
+    }
+
+    function getOnClick() {
+        if (props.published) {         //to do something
+            console.log("finalized poll")
+        } else {
+            localStorage.setItem('pollId', props.id)
+            navigate("/create-poll")
+        }
     }
 
     return (
@@ -59,9 +70,11 @@ function OldPoll(props) {
                 <button onClick={toggleList}>
                     <MoreHorizontal color={"#085B91"} strokeWidth={"2"} size={"17"}/>
                 </button>
-                {listOpen && (<FadeIn><DropDown closeDropDown={toggleList} oldName={props.text} renameHandler={renameHandler} deleteHandler={deleteHandler} /></FadeIn>)}
+                {listOpen && (
+                    <FadeIn><DropDown closeDropDown={toggleList} oldName={props.text} renameHandler={renameHandler}
+                                      deleteHandler={deleteHandler}/></FadeIn>)}
             </div>
-            <div className={"text"}>
+            <div className={"text"} onClick={getOnClick}>
                 <h6>{name}</h6>
                 <p>Created On : {new Date(props.date).toLocaleDateString(
                     'en-gb',

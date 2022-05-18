@@ -69,6 +69,10 @@
     padding: 25px 30px;
 }
 
+.read-only *{
+    pointer-events: none !important;
+}
+
 .poll-name:hover, .poll-desc:hover{
     background-color: #EFF5F9;
 }

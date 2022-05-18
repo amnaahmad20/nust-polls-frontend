@@ -17,6 +17,8 @@ import ExistingPolls from './Components/Existing/ExistingPolls';
 import ForgotPassword from './Components/Forms/ForgotPassword';
 import ResetPassword from './Components/Forms/ResetPassword';
 import { useStateValue } from './StateProvider';
+import EditPoll from "./Components/Existing/EditPoll/EditPoll";
+import PollCreationNav from "./Components/Nav/PollCreationNav";
 
 function App() {
   const [{ user }, dispatch] = useStateValue();
@@ -94,11 +96,20 @@ function App() {
             path="/create-poll"
             element={
               <div className="App">
-                <Nav />
+                <PollCreationNav />
                 <CreatePolls />
               </div>
             }
           ></Route>
+            <Route
+                path="/edit-poll"
+                element={
+                    <div className="App">
+                        <PollCreationNav />
+                        <EditPoll />
+                    </div>
+                }
+            ></Route>
           <Route
             path="/view-polls"
             element={
