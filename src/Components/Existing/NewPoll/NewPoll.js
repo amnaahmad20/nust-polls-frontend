@@ -17,20 +17,19 @@ function NewPoll(props) {
             console.log(res);
             localStorage.setItem('pollId', res.data._id);
             console.log(localStorage.getItem('pollId'));
-            axios.post('http://localhost:9000/polls/populate', {
-                poll: localStorage.getItem('pollId')
-            }, {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')}`, 'Content-Type': 'application/json'
-                }
-            }).then(res => {
-                console.log("sending question creation request")
-                console.log(res);
-                localStorage.setItem('questionsId', res.data._id);
-                console.log(localStorage.getItem('questionsId'));
-                navigate("/create-poll")
-            }).catch(err => console.log(err.message))
-        }).catch(err => console.log(err.message))
+        }).then( axios.post('http://localhost:9000/polls/populate', {
+            poll: localStorage.getItem('pollId')
+        }, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`, 'Content-Type': 'application/json'
+            }
+        }).then().then(res => {
+            console.log("sending question creation request")
+            console.log(res);
+            localStorage.setItem('questionsId', res.data._id);
+            console.log(localStorage.getItem('questionsId'));
+            navigate("/create-poll")
+        }).catch(err => console.log(err.message))).catch(err => console.log(err.message))
     }
 
     return (<div className={"base"} onClick={getOnClick}>
