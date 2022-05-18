@@ -7,7 +7,7 @@ function ResponseTab(props) {
   return (
     <div className={'responses'}>
       No responses Yet
-      <div style={{ margin: 'auto', padding: '0 20%' }}>
+      <div style={{ margin: 'auto', padding: '0 30%' }}>
         <DoughnutChart
           labelSet={[
             'Maybelline',
