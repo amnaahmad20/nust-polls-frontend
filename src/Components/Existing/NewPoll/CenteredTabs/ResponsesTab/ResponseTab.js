@@ -3,7 +3,7 @@ import './ResponseTab.css';
 import Question from '../QuestionsTab/Question/Question';
 import DoughnutChart from '../../../../Charts/DoughnutChart/DoughnutChart';
 import BarChart from '../../../../Charts/BarChart/BarChart';
-import ShortText from '../QuestionsTab/Question/ShortText/ShortText';
+import Response from './Response/Response';
 
 function ResponseTab(props) {
   const [questions, setQuestions] = useState([]);
@@ -159,7 +159,7 @@ function ResponseTab(props) {
               ) : (
                 <div>
                   {responses[qIndex].responses.map((response) => (
-                    <ShortText
+                    <Response
                       answer={response.answer}
                       username={response.username}
                     />

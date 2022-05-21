@@ -93,7 +93,7 @@ function Question(props) {
                                                                            id={props.id} question={question} />}
             </div>}
         </FadeIn>
-        
+
         { props.children}
         {!props.published && <div className={"question-delete-wrapper"} >
             <Trash className={"question-delete-icon"} strokeWidth={2} onClick={() => deleteHandler()} size={35} />
@@ -107,6 +107,5 @@ function Question(props) {
 Question.defaultProps = {
   responseTab: false,
 };
-
 
 export default Question;

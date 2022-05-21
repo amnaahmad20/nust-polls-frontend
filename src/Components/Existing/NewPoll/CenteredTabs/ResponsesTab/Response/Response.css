@@ -1,0 +1,31 @@
+.response {
+  padding-left: 13px;
+  padding-top: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.response p {
+  margin-bottom: 3px;
+}
+
+.response-answer {
+  font-size: 14px;
+  color: rgba(6, 54, 82, 0.75);
+  background-color: #eff5f9;
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  line-height: 1.6;
+}
+
+.response-answer span {
+  background-color: rgba(240, 246, 250, 0.5);
+  font-size: 12px;
+  color: #063651;
+  font-weight: 600;
+  cursor: default;
+  margin-right: 10px;
+  padding-right: 10px;
+  border-right: 2px solid rgba(6, 54, 82, 0.75);
+}

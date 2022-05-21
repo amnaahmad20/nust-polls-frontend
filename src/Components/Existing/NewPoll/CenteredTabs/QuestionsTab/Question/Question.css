@@ -16,14 +16,14 @@
 }
 
 .question-body {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    border: 2px solid rgba(9, 91, 145, 0.25);
-    border-radius: 15px;
-    padding: 20px;
-    margin: 15px 0;
-    transition: all 0.3s;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  border: 2px solid rgba(9, 91, 145, 0.25);
+  border-radius: 15px;
+  padding: 20px;
+  margin: 15px 0;
+  transition: all 0.3s;
 }
 
 .question-body:focus-within {
@@ -88,6 +88,7 @@ p.question-title {
 
 .question-title:hover {
   background-color: #eff5f9;
+  word-wrap: break-word;
 }
 
 .question-title:focus {
