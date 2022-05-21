@@ -75,6 +75,20 @@
     border-radius: 5px;
 }
 
+.radio-wrap{
+    width: calc( 100% - 25px );
+    display: inline-block;
+    word-wrap: break-word ;
+    white-space: pre-wrap !important;
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+.student-height{
+    height: auto !important;
+    max-height: 100% !important;
+}
+
 .radio-text-bold{
     font-size: 14px;
     font-weight: 600;

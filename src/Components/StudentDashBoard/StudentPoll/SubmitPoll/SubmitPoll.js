@@ -1,14 +1,12 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Plus} from "lucide-react";
 import {Puff} from "react-loading-icons";
 import {animated, useSpring} from "react-spring";
-import {EditText} from "react-edit-text";
-import Question from "../../../Existing/NewPoll/CenteredTabs/QuestionsTab/Question/Question";
 import {useStateValue} from "../../../../StateProvider";
 import axios from "axios";
-import {MCQ, Questions, TextBased, Option} from "../../../Existing/NewPoll/CenteredTabs/QuestionsTab/QuestionsTab";
+import {MCQ, Option, Questions, TextBased} from "../../../Existing/NewPoll/CenteredTabs/QuestionsTab/QuestionsTab";
 import StudentQuestion from "./StudentQuestion/StudentQuestion";
 import './SubmitPoll.css'
+
 function SubmitPoll(props) {
 
     let today = new Date()
@@ -73,41 +71,37 @@ function SubmitPoll(props) {
 
     // const [isCreated, setIsCreated] = useState(props.isCreeated);
 
-    useEffect(
-        function () {
-            const fetchData = async () => {
-                try {
+    useEffect(function () {
+        const fetchData = async () => {
+            try {
 
-                    await axios.get(fetchUrl, {
-                        headers: {
-                            Authorization: `Bearer ${localStorage.getItem('token')}`,
-                            'Content-Type': 'application/json'
-                        }
-                    }).then((response) => {
-                        // setPollsData(response.data);
-                        console.log("this is fetch response.data");
-                        console.log(response.data);
-                        localStorage.setItem('questionId', response.data.questions[0]._id)
-                        setName(response.data.poll_name)
-                        setDescription(response.data.description)
-                        setQuestions(fetchQuestions(response.data.questions[0].mcq ? response.data.questions[0].mcq : [], response.data.questions[0].text_based ? response.data.questions[0].text_based : []))
-                        setIsPublished(response.data.published)
-                    });
-                } catch (error) {
-                    console.error(error);
-                }
-                setLoading(false);
-            };
-            // if(isCreated) {
-            fetchData().then(r => console.log("fetch request complete"))
+                await axios.get(fetchUrl, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}`, 'Content-Type': 'application/json'
+                    }
+                }).then((response) => {
+                    // setPollsData(response.data);
+                    console.log("this is fetch response.data");
+                    console.log(response.data);
+                    localStorage.setItem('questionId', response.data.questions[0]._id)
+                    setName(response.data.poll_name)
+                    setDescription(response.data.description)
+                    setQuestions(fetchQuestions(response.data.questions[0].mcq ? response.data.questions[0].mcq : [], response.data.questions[0].text_based ? response.data.questions[0].text_based : []))
+                    setIsPublished(response.data.published)
+                });
+            } catch (error) {
+                console.error(error);
+            }
+            setLoading(false);
+        };
+        // if(isCreated) {
+        fetchData().then(r => console.log("fetch request complete"))
 
-            // }
-            return {
-                loading,
-            };
-        },
-        []
-    );
+        // }
+        return {
+            loading,
+        };
+    }, []);
 
 
     useEffect(() => {
@@ -162,15 +156,12 @@ function SubmitPoll(props) {
     // }
 
 
-
     function fetchQuestions(mcq, textBased) {
         const newQuestions = []
         mcq.forEach(m => {
             const newOptions = []
             m.options.forEach(o => {
-                newOptions.push(
-                    new Option(o)
-                )
+                newOptions.push(new Option(o))
             })
             newQuestions[m.index] = new MCQ(m.statement, newOptions)
         })
@@ -183,9 +174,8 @@ function SubmitPoll(props) {
     }
 
 
-    return (
-        <div className={"student-main-container"} >
-            <div className={"student-container"} >
+    return (<div className={"student-main-container"}>
+        <div className={"student-container"}>
 
             {loading && questions.length > 0 &&
                 <div style={{"paddingTop": "41px"}}><Puff height={"150px"} transform={"scale(2)"} stroke="#085B91"
@@ -196,22 +186,21 @@ function SubmitPoll(props) {
                 overflow: "hidden", width: "100%", ...style
             }}>
                 <div ref={ref} className={!isPublished ? "poll-header" : "poll-header read-only"}>
-                    {!loading && <form>
-                        <EditText required defaultValue={name} placeholder={"Poll Name"}
-                                  className={"poll-name"} readonly={true}/>
-                        <EditText required defaultValue={description} placeholder={"Poll Description"}
-                                  className={"poll-desc"} readonly={true}/>
-                    </form>}
-                    {!loading && questions.length > 0 && questions.map((question) => (
-                        <StudentQuestion key={question.id}
-                                   id={questions.indexOf(question)} question={question}
-                                   published={isPublished}/>))}
+                    {!loading && <div>
+                        <p
+                            className={"poll-name student-wrap"}>{"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaname"}</p>
+                        <p
+                            className={"poll-desc student-wrap"}>{description}</p>
+                    </div>}
+                    {!loading && questions.length > 0 && questions.map((question) => (<StudentQuestion key={question.id}
+                                                                                                       id={questions.indexOf(question)}
+                                                                                                       question={question}
+                                                                                                       published={isPublished}/>))}
                 </div>
             </animated.div>
-            </div>
-
         </div>
-    );
+
+    </div>);
 }
 
 export default SubmitPoll;

@@ -35,10 +35,8 @@ function StudentQuestion(props) {
 
 
             <div className={"question-heading"}>
-                <div>
-                    <EditText readonly={true} defaultValue={name} placeholder={"Untitled Question"}
-                              className={"question-title"}/>
-                </div>
+                    <p
+                              className={"question-title student-wrap"}>{"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaname"}</p>
 
             </div>
             <FadeIn>
