@@ -4,19 +4,20 @@ import {SortDesc} from 'lucide-react';
 import NewPoll from '../Existing/NewPoll/NewPoll';
 import OldPoll from '../Existing/OldPoll/OldPoll';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
-import { useStateValue } from '../../StateProvider';
+import {useParams} from 'react-router-dom';
+import {useStateValue} from '../../StateProvider';
+import {Puff} from "react-loading-icons";
 
 function ExistingPolls(props) {
-  const { adminId } = useParams();
-  const [{ user }, dispatch] = useStateValue();
+    const {adminId} = useParams();
+    const [{user}, dispatch] = useStateValue();
 
     //DUMMY URL
     const url =
         'http://localhost:9000/polls/' + localStorage.getItem('adminId');
 
     const [pollsData, setPollsData] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     useEffect(
         function () {
@@ -28,16 +29,17 @@ function ExistingPolls(props) {
                             'Content-Type': 'application/json'
                         }
                     }).then((response) => {
+                        setLoading(false);
                         setPollsData(response.data);
                         console.log(response.data);
                     });
                 } catch (error) {
+                    setLoading(false);
                     console.error(error);
                 }
-                setLoading(false);
             };
 
-            fetchData();
+            fetchData().then(r => console.log("fetch request complete"))
             return {
                 pollsData,
                 loading,
@@ -53,12 +55,12 @@ function ExistingPolls(props) {
     return (
         <div className={'main'}>
             <div className={'header'}>
-            <h3>
-          {user?.admin
-            ? `${user.admin.firstName} ${user.admin.lastName}`
-            : `${user?.firstName} ${user?.lastName}`}
-          's Polls
-        </h3>
+                <h3>
+                    {user?.admin
+                        ? `${user.admin.firstName} ${user.admin.lastName}`
+                        : `${user?.student.firstName} ${user?.student.lastName}`}
+                    's Polls
+                </h3>
                 <button className={'sort'}>
                     {' '}
                     <SortDesc color={'#085B91'} size={'19'} strokeWidth={'1'}/> Sort By
@@ -69,7 +71,7 @@ function ExistingPolls(props) {
                 <NewPoll/>
                 {pollsData.length > 0 &&
                     pollsData.map((poll) => (
-                        <OldPoll
+                        !loading && <OldPoll
                             id={poll._id}
                             key={poll._id}
                             text={poll.poll_name}
@@ -79,6 +81,9 @@ function ExistingPolls(props) {
                         />
                     ))}
             </div>
+            {loading &&
+                <div style={{"paddingTop": "41px"}}><Puff height={"50px"} transform={"scale(1.5)"} stroke="#085B91"
+                                                          strokeOpacity={.125} speed={.75}/></div>}
         </div>
     );
 }

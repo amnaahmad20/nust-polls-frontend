@@ -83,15 +83,17 @@ function Question(props) {
             </div>}
 
         </div>
+
         <FadeIn>
             {!props.responseTab && <div className={"question-details"}>
-                {selected === "TextBased" ? <ShortText /> : <MultipleChoice published={props.published}
-                    onDeleteOption={deleteOptionHandler}
-                    onAddOption={addOptionHandler}
-                    onRenameOption={renameOptionHandler}
-                    id={props.id} question={question} />}
+                {selected === "TextBased" ? <ShortText isStudent={false} /> : <MultipleChoice isStudent={false} published={props.published}
+                                                                           onDeleteOption={deleteOptionHandler}
+                                                                           onAddOption={addOptionHandler}
+                                                                           onRenameOption={renameOptionHandler}
+                                                                           id={props.id} question={question} />}
             </div>}
         </FadeIn>
+        
         { props.children}
         {!props.published && <div className={"question-delete-wrapper"} >
             <Trash className={"question-delete-icon"} strokeWidth={2} onClick={() => deleteHandler()} size={35} />

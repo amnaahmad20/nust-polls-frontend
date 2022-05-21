@@ -3,6 +3,8 @@
     justify-content: space-between;
     align-items: center;
     text-align: center;
+    width: 100%;
+    max-width: 100%;
 }
 
 #delete-option{
@@ -24,6 +26,27 @@
 }
 
 
+.radio-text-wrapper{
+    display: flex;
+    justify-content: left;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: calc( 100% - 15px ) ;
+}
+
+.radio-text-wrapper > div{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex-grow: 1;
+}
+
+.radio-text-wrapper > div:first-child {
+    max-width: 100% ;
+    text-align: left;
+    width: 20px;
+}
 
 .radio-option{
     display: flex;
@@ -31,16 +54,18 @@
     padding: 5px 13px;
     border-radius: 7px;
     margin:  2.5px 0;
-    width: calc(100% - 35px);
     max-height: 29px !important;
     transition: 0.3s;
+    min-width: 0;
+    width: 100%;
+    max-width: calc( 100% - 40px );
 }
 
 .radio-text{
     font-size: 14px;
     font-weight: 300;
     color: rgba(6, 54, 82, 0.75);
-    margin: 0;
+    margin: 0 auto;
     padding: 0 10px;
     transition: 0.3s;
     border: none;
@@ -48,7 +73,20 @@
     max-height: 29px !important;
     caret-color: #085B91;
     border-radius: 5px;
-    width: calc(100% - 25px);
+}
+
+.radio-wrap{
+    width: calc( 100% - 25px );
+    display: inline-block;
+    word-wrap: break-word ;
+    white-space: pre-wrap !important;
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+.student-height{
+    height: auto !important;
+    max-height: 100% !important;
 }
 
 .radio-text-bold{
@@ -80,7 +118,6 @@
     background-color: #dde7ef !important;
 }
 .radio-text:focus{
-
     margin:  0 !important;
     padding: 0 0 0 10px !important;
     width: calc(100% - 15px);
@@ -88,6 +125,7 @@
     outline: none;
     background-color: #dde7ef;
     color: #085B91;
+
 }
 .radio-option:focus-within{
     border: none;
@@ -96,6 +134,10 @@
     color: #085B91;
     margin-top: 2px;
     box-shadow: 0 2px 0 #085B91;
+
+}
+
+@media only screen and (max-width: 752px) {
 
 }
 

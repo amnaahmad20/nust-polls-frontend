@@ -16,6 +16,7 @@
 
 .nav img {
     margin: 0 0 0 16px;
+    cursor: pointer;
 }
 
 .nav > img:only-child {

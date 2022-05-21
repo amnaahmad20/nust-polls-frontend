@@ -84,6 +84,13 @@
     color: #085B91;
 }
 
+.loader-hidden {
+    display: none;
+}
+.loader-active {
+    display: block;
+}
+
 
 
 

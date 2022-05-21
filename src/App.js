@@ -19,6 +19,9 @@ import ResetPassword from './Components/Forms/ResetPassword';
 import { useStateValue } from './StateProvider';
 import EditPoll from "./Components/Existing/EditPoll/EditPoll";
 import PollCreationNav from "./Components/Nav/PollCreationNav";
+import StudentDashBoard from "./Components/StudentDashBoard/StudentDashBoard";
+import SubmitPoll from "./Components/StudentDashBoard/StudentPoll/SubmitPoll/SubmitPoll";
+import PollSubmissionNav from "./Components/Nav/PollSubmissionNav";
 
 function App() {
   const [{ user }, dispatch] = useStateValue();
@@ -79,7 +82,8 @@ function App() {
             path="/student"
             element={
               <div className="App">
-                <h1>Welcome</h1>
+              <Nav  />
+              <StudentDashBoard/>
               </div>
             }
           ></Route>
@@ -101,6 +105,15 @@ function App() {
               </div>
             }
           ></Route>
+            <Route
+                path="/submit-poll"
+                element={
+                    <div className="App">
+                        <PollSubmissionNav />
+                        <SubmitPoll />
+                    </div>
+                }
+            ></Route>
             <Route
                 path="/edit-poll"
                 element={

@@ -1,0 +1,21 @@
+.student-main-container{
+    background-color: #EFF5F9;
+    min-height: calc(100vh - 74px);
+    height: auto;
+    align-items: center;
+    text-align: center;
+}
+
+.student-container{
+    background-color: white;
+    height: auto;
+    margin: 75px;
+    border-radius: 15px;
+}
+
+.student-wrap{
+    width: 100%;
+    display: inline-block;
+    word-wrap: break-word ;
+    white-space: pre-wrap !important;
+}
