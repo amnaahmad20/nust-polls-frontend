@@ -76,16 +76,18 @@
 }
 
 .radio-wrap{
-    width: calc( 100% - 25px );
+    min-width: calc( 100% - 25px );
+    width: 10px;
+    /*max-width: calc( 100% - 25px );*/
     display: inline-block;
     word-wrap: break-word ;
     white-space: pre-wrap !important;
-    margin-bottom: 5px;
     text-align: left;
+    height: fit-content !important;
 }
 
 .student-height{
-    height: auto !important;
+    height: fit-content !important;
     max-height: 100% !important;
 }
 
@@ -135,6 +137,11 @@
     margin-top: 2px;
     box-shadow: 0 2px 0 #085B91;
 
+}
+
+.no-event:focus-within{
+    margin-top: 0;
+    box-shadow: none;
 }
 
 @media only screen and (max-width: 752px) {

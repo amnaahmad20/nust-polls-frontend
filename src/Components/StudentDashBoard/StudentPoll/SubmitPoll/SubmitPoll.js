@@ -188,7 +188,7 @@ function SubmitPoll(props) {
                 <div ref={ref} className={!isPublished ? "poll-header" : "poll-header read-only"}>
                     {!loading && <div>
                         <p
-                            className={"poll-name student-wrap"}>{"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaname"}</p>
+                            className={"poll-name student-wrap"}>{name}</p>
                         <p
                             className={"poll-desc student-wrap"}>{description}</p>
                     </div>}

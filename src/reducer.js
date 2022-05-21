@@ -6,6 +6,7 @@ export const initialState = {
   is_option_empty: false,
   changed: true,
   responseTab: false,
+  answers: [],
 };
 
 const reducer = (state, action) => {
@@ -40,6 +41,16 @@ const reducer = (state, action) => {
       return {
         ...state,
         responseTab: action.responseTab,
+      };
+
+    case 'SET_ANSWERS':
+      return {
+        ...state,
+        answers: [
+          ...state.answers.slice(0, action.index),
+          action.answer,
+          ...state.answers.slice(action.index),
+        ],
       };
 
     default:
