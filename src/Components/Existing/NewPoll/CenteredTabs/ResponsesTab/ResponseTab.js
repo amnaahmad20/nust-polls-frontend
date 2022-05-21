@@ -75,12 +75,12 @@ function ResponseTab(props) {
               {
                 student_id: '6251890f231691cda13f3cea',
                 username: 'fmujahid.bese18seecs',
-                answer: 0,
+                answer: '0',
               },
               {
                 student_id: '62518a328d6cf528028b4381',
                 username: 'fmujahid.bscs20seecs',
-                answer: 1,
+                answer: '1',
               },
             ],
           },
@@ -90,12 +90,12 @@ function ResponseTab(props) {
               {
                 student_id: '6251890f231691cda13f3cea',
                 username: 'fmujahid.bese18seecs',
-                answer: 1,
+                answer: '1',
               },
               {
                 student_id: '62518a328d6cf528028b4381',
                 username: 'fmujahid.bscs20seecs',
-                answer: 0,
+                answer: '0',
               },
             ],
           },
@@ -117,50 +117,52 @@ function ResponseTab(props) {
   const calculateCount = (options, qIndex) => {
     const count = options.map((option, index) =>
       responses[qIndex].responses.reduce(
-        (acc, cur) => (cur.answer === index ? ++acc : acc),
+        (acc, cur) => (parseInt(cur.answer) === index ? ++acc : acc),
         0
       )
     );
+
     return count;
   };
 
   return (
     <div className={'responses'}>
-      {responses?.length
-        ? questions.map((question, qIndex) => (
-            <div style={{ marginBottom: '30px' }}>
-              <h5>{question.statement}</h5>
-              <p>{`${responses[qIndex].responses.length} responses`}</p>
-              {question.options ? (
-                question.options.length < 4 ? (
-                  <div style={{ margin: 'auto', padding: '0 37.5%' }}>
-                    <DoughnutChart
-                      labelSet={question.options}
-                      dataSet={calculateCount(question.options, qIndex)}
-                    />
-                  </div>
-                ) : (
-                  <div style={{ margin: 'auto', padding: '0 35%' }}>
-                    <BarChart
-                      labelSet={question.options}
-                      dataSet={calculateCount(question.options, qIndex)}
-                    />
-                  </div>
-                )
-              ) : (
+      {/* TODO
+      Total no of responses and 0 responses with nothing else in case of no responses */}
+      <h3>2 responses</h3>
+      {questions.map((question, qIndex) => (
+        <div>
+          <h5>{question.statement}</h5>
+          <p>{`${responses[qIndex].responses.length} responses`}</p>
+          {question.options ? (
+            question.options.length < 4 ? (
+              <div style={{  padding: '0 37.5%' }}>
+                <DoughnutChart
+                  labelSet={question.options}
+                  dataSet={calculateCount(question.options, qIndex)}
+                />
+              </div>
+            ) : (
+              <div style={{ padding: '0 35%' }}>
+                <BarChart
+                  labelSet={question.options}
+                  dataSet={calculateCount(question.options, qIndex)}
+                />
+              </div>
+            )
+          ) : (
+            <div>
+              {responses[qIndex].responses.map((response) => (
                 <div>
-                  {responses[qIndex].responses.map((response) => (
-                    <div>
-                      <p>
-                        {response.answer} {response.username}
-                      </p>
-                    </div>
-                  ))}
+                  <p>
+                    {response.answer} {response.username}
+                  </p>
                 </div>
-              )}
+              ))}
             </div>
-          ))
-        : 'No responses Yet'}
+          )}
+        </div>
+      ))}
     </div>
   );
 }

@@ -10,6 +10,9 @@ function Nav() {
 
   const logoutHandler = () => {
     localStorage.removeItem('token');
+    localStorage.getItem('adminId')
+      ? localStorage.removeItem('adminId')
+      : localStorage.removeItem('studentId');
     dispatch({
       type: 'SET_USER',
       user: null,
