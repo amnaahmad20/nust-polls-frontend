@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import './BarChart.css';
 import {
   defaults,
   CategoryScale,
@@ -15,6 +16,21 @@ defaults.color = '#063651';
 Chart.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
 const DoughnutChart = ({ labelSet, dataSet }) => {
+  const [width, setWidth] = useState(window.innerWidth);
+  const [displayLegend, setDisplayLegend] = useState(true);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWidth(window.innerWidth);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [width]);
+
+  useEffect(() => {
+    width < 752 ? setDisplayLegend(false) : setDisplayLegend(true);
+  }, [width]);
+
   const options = {
     responsive: true,
     scales: {
@@ -42,7 +58,7 @@ const DoughnutChart = ({ labelSet, dataSet }) => {
     },
     plugins: {
       legend: {
-        display: true,
+        display: displayLegend,
         position: 'right',
         labels: {
           padding: 12,
@@ -72,12 +88,13 @@ const DoughnutChart = ({ labelSet, dataSet }) => {
       backgroundColor: colors[index],
       categoryPercentage: 1,
       barPercentage: 0.75,
-      maxBarThickness: 24,
+      maxBarThickness: 25,
+      minBarLength: 5,
     })),
   };
 
   return (
-    <div>
+    <div className="bar-chart">
       <Bar data={data} options={options} />
     </div>
   );

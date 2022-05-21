@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import './DoughnutChart.css';
 import { defaults, Chart, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
 
@@ -7,11 +8,26 @@ defaults.color = '#063651';
 Chart.register(ArcElement, Tooltip, Legend);
 
 const DoughnutChart = ({ labelSet, dataSet }) => {
+  const [width, setWidth] = useState(window.innerWidth);
+  const [displayLegend, setDisplayLegend] = useState(true);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWidth(window.innerWidth);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [width]);
+
+  useEffect(() => {
+    width < 752 ? setDisplayLegend(false) : setDisplayLegend(true);
+  }, [width]);
+
   const options = {
     responsive: true,
     plugins: {
       legend: {
-        display: true,
+        display: displayLegend,
         position: 'right',
         labels: {
           padding: 12,
@@ -37,17 +53,16 @@ const DoughnutChart = ({ labelSet, dataSet }) => {
           '#8BE2A3',
           '#6C63CD',
         ],
-        hoverOffset: 4,
         borderJoinStyle: 'round',
-        borderRadius: 8,
-        spacing: 12,
+        borderRadius: 7,
+        spacing: 3,
         cutout: '67%',
       },
     ],
   };
 
   return (
-    <div>
+    <div className="doughnut-chart">
       <Doughnut data={data} options={options} />
     </div>
   );

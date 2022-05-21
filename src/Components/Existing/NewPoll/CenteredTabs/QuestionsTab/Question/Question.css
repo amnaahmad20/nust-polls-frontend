@@ -1,146 +1,146 @@
 .question-heading > div {
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    flex-grow: 1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex-grow: 1;
 }
 
 .question-heading > div:first-child {
-    max-width: calc( 100% - 260px ) ;
+  max-width: calc(100% - 260px);
 }
 
 .question-heading {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    max-width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 100%;
 }
 
 .question-body {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    border: 2px solid rgba(9, 91, 145, 0.25);
-    border-radius: 15px;
-    padding: 20px;
-    margin: 15px 0;
-    transition: all 0.3s;
-
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  border: 2px solid rgba(9, 91, 145, 0.25);
+  border-radius: 15px;
+  padding: 20px;
+  margin: 15px 0;
+  transition: all 0.3s;
 }
 
 .question-body:focus-within {
-    box-shadow: 0 -9px 0 #085B91;
-    margin-top: 24.5px;
+  box-shadow: 0 -9px 0 #085b91;
+  margin-top: 24.5px;
 }
 
 .question-details {
-    transition: 0.3s;
+  transition: 0.3s;
+}
+
+p.question-title {
+  width: 100%;
 }
 
 .question-title {
-    color: rgba(6, 54, 82, 1);
-    font-size: 18px;
-    font-weight: 500;
-    text-align: left;
-    padding: 9px 13px !important;
-    margin: auto !important;
-    justify-content: center;
-    border-radius: 7px;
-    transition: 0.3s;
-    border: none;
-    outline: none;
-    caret-color: #085B91;
+  color: rgba(6, 54, 82, 1);
+  font-size: 18px;
+  font-weight: 500;
+  text-align: left;
+  padding: 9px 13px !important;
+  margin: auto !important;
+  justify-content: center;
+  border-radius: 7px;
+  transition: 0.3s;
+  border: none;
+  outline: none;
+  caret-color: #085b91;
 }
 
-.question-delete-wrapper{
-    position: relative;
-    width: 100%;
+.question-delete-wrapper {
+  position: relative;
+  width: 100%;
 }
 
 .question-delete-icon {
-    position: absolute;
-    right: -10px;
-    bottom: -10px;
-    cursor: pointer;
-    transition: 0.3s;
-    padding: 10px;
-    border-radius: 50%;
-    color: rgba(6, 54, 82, 0.5);
+  position: absolute;
+  right: -10px;
+  bottom: -10px;
+  cursor: pointer;
+  transition: 0.3s;
+  padding: 10px;
+  border-radius: 50%;
+  color: rgba(6, 54, 82, 0.5);
 }
 
 .question-delete-icon:hover {
-    background-color: rgba(9, 91, 145, 0.1);
-    color: #085B91;
+  background-color: rgba(9, 91, 145, 0.1);
+  color: #085b91;
 }
 
 .question-delete-icon:active {
-    background-color: rgba(9, 91, 145, 0.25);
-    color: #085B91;
+  background-color: rgba(9, 91, 145, 0.25);
+  color: #085b91;
 }
 
-
 .question-dropdown {
-    margin: 0 20px;
-    flex-basis: 0;
-    border: none;
+  margin: 0 20px;
+  flex-basis: 0;
+  border: none;
 }
 
 .question-title:hover {
-    background-color: #EFF5F9;
+  background-color: #eff5f9;
+  word-wrap: break-word;
 }
 
 .question-title:focus {
-    border: none;
-    outline: none;
-    background-color: #dde7ef;
-    color: #085B91;
+  border: none;
+  outline: none;
+  background-color: #dde7ef;
+  color: #085b91;
 }
 
 .dropdown-questions {
-    max-width: 225px;
-    margin-left: 20px;
+  max-width: 225px;
+  margin-left: 20px;
 }
 
 .render {
-    visibility: hidden;
-    opacity: 0;
-    transition: all 0.6s ease;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.6s ease;
 }
 
 .show {
-    visibility: visible;
-    opacity: 1;
+  visibility: visible;
+  opacity: 1;
 }
 
 @media only screen and (max-width: 752px) {
-    .question-heading{
-        flex-direction: column;
-        /*align-items: center;*/
-        justify-content: stretch;
-    }
+  .question-heading {
+    flex-direction: column;
+    /*align-items: center;*/
+    justify-content: stretch;
+  }
 
-    .question-heading > div{
-        max-width: 100%;
-    }
+  .question-heading > div {
+    max-width: 100%;
+  }
 
-    .question-heading > div:first-child {
-        max-width: 100%;
-    }
+  .question-heading > div:first-child {
+    max-width: 100%;
+  }
 
-    .dropdown-questions{
-        margin: 0;
-        max-width: 100%;
-    }
+  .dropdown-questions {
+    margin: 0;
+    max-width: 100%;
+  }
 
-    .dropdown-questions > div{
-        width: 100%;
-        max-width: 752px;
-    }
+  .dropdown-questions > div {
+    width: 100%;
+    max-width: 752px;
+  }
 
-    .dropdown-questions > div > div{
-        width: 100% !important;
-        max-width: 752px;
-    }
-
+  .dropdown-questions > div > div {
+    width: 100% !important;
+    max-width: 752px;
+  }
 }
-
-

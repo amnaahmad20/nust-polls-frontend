@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './ResponseTab.css';
-import DoughnutChart from '../../../../Charts/DoughnutChart';
-import BarChart from '../../../../Charts/BarChart';
+import Question from '../QuestionsTab/Question/Question';
+import DoughnutChart from '../../../../Charts/DoughnutChart/DoughnutChart';
+import BarChart from '../../../../Charts/BarChart/BarChart';
+import Response from './Response/Response';
 
 function ResponseTab(props) {
   const [questions, setQuestions] = useState([]);
@@ -17,10 +19,11 @@ function ResponseTab(props) {
           {
             statement: 'Is the hike justified?',
             index: 0,
-            options: ['Yes', 'No', 'Maybe'],
+            options: ['Yes', 'No', 'Maybe', 'Neither'],
           },
           {
-            statement: 'Were you expecting the hike?',
+            statement:
+              'Were you expecting the hike asnnmsdnsa djsakds sdajssssssssssssssssssss?',
             options: ['Yes', 'No'],
             index: 3,
           },
@@ -129,40 +132,43 @@ function ResponseTab(props) {
     <div className={'responses'}>
       {/* TODO
       Total no of responses and 0 responses with nothing else in case of no responses */}
-      <h3>2 responses</h3>
-      {questions.map((question, qIndex) => (
-        <div>
-          <h5>{question.statement}</h5>
-          <p>{`${responses[qIndex].responses.length} responses`}</p>
-          {question.options ? (
-            question.options.length < 4 ? (
-              <div style={{  padding: '0 37.5%' }}>
-                <DoughnutChart
-                  labelSet={question.options}
-                  dataSet={calculateCount(question.options, qIndex)}
-                />
-              </div>
-            ) : (
-              <div style={{ padding: '0 35%' }}>
-                <BarChart
-                  labelSet={question.options}
-                  dataSet={calculateCount(question.options, qIndex)}
-                />
-              </div>
-            )
-          ) : (
+      <p className="responses-total">2 responses</p>
+      {questions.length > 0 &&
+        questions.map((question, qIndex) => (
+          <Question
+            key={qIndex}
+            id={qIndex}
+            question={question}
+            published={true}
+            responseTab={true}
+          >
             <div>
-              {responses[qIndex].responses.map((response) => (
+              <p className="responses-no">{`${responses[qIndex].responses.length} responses`}</p>
+              {question.options ? (
+                question.options.length < 3 ? (
+                  <DoughnutChart
+                    labelSet={question.options}
+                    dataSet={calculateCount(question.options, qIndex)}
+                  />
+                ) : (
+                  <BarChart
+                    labelSet={question.options}
+                    dataSet={calculateCount(question.options, qIndex)}
+                  />
+                )
+              ) : (
                 <div>
-                  <p>
-                    {response.answer} {response.username}
-                  </p>
+                  {responses[qIndex].responses.map((response) => (
+                    <Response
+                      answer={response.answer}
+                      username={response.username}
+                    />
+                  ))}
                 </div>
-              ))}
+              )}
             </div>
-          )}
-        </div>
-      ))}
+          </Question>
+        ))}
     </div>
   );
 }

@@ -70,27 +70,33 @@ function Question(props) {
 
     return (<animated.div style={{opacity: style.opacity}} className={"question-body"}>
 
+        <div className={"question-heading"}>
+            {props.responseTab ?
+                <p className="question-title">{name}</p> :
+                <div>
+                    <EditText readonly={props.published} defaultValue={name} placeholder={"Untitled Question"} onSave={changeName} className={"question-title"} />
+                </div>
+            }
 
-        <div  className={"question-heading"}>
-            <div>
-                <EditText readonly={props.published} defaultValue={name} placeholder={"Untitled Question"} onSave={changeName} className={"question-title"}/>
-            </div>
             { !props.published &&              <div className={"dropdown-questions"}>
                 <AnimatedDropdown id={props.id} switch={onSwitch} text={props.question.statement} selected={selected} onSelection={HandleSelection}/>
             </div>}
 
         </div>
+
         <FadeIn>
-            <div className={"question-details"}>
+            {!props.responseTab && <div className={"question-details"}>
                 {selected === "TextBased" ? <ShortText isStudent={false} /> : <MultipleChoice isStudent={false} published={props.published}
                                                                            onDeleteOption={deleteOptionHandler}
                                                                            onAddOption={addOptionHandler}
                                                                            onRenameOption={renameOptionHandler}
                                                                            id={props.id} question={question} />}
-            </div>
+            </div>}
         </FadeIn>
+
+        { props.children}
         {!props.published && <div className={"question-delete-wrapper"} >
-            <Trash className={"question-delete-icon"} strokeWidth={2} onClick={()=>deleteHandler()} size={35}  />
+            <Trash className={"question-delete-icon"} strokeWidth={2} onClick={() => deleteHandler()} size={35} />
         </div>}
 
 
@@ -98,5 +104,8 @@ function Question(props) {
     </animated.div>);
 }
 
+Question.defaultProps = {
+  responseTab: false,
+};
 
 export default Question;

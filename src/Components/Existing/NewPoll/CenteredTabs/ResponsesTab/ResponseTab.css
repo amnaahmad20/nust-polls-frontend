@@ -1,5 +1,29 @@
-.responses{
-    padding: 20px;
-    /* font-weight: 700;
+.responses {
+  padding: 25px 30px;
+  /* font-weight: 700;
     font-size: 28px; */
+  text-align: left;
+}
+
+.responses-total {
+  text-align: left;
+  padding: 0 10px !important;
+  margin: 0 -10px !important;
+  justify-content: center;
+  border-radius: 10px;
+  font-size: 28px;
+  font-weight: 600;
+  transition: 0.3s;
+  border: none;
+  outline: none;
+  color: #063651;
+  caret-color: #085b91;
+}
+
+.responses-no {
+  padding-left: 13px;
+  padding-top: 5px;
+  color: rgba(6, 54, 82, 0.75);
+  font-size: 14px;
+  font-weight: 500;
 }
