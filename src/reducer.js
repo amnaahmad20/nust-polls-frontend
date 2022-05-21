@@ -5,6 +5,7 @@ export const initialState = {
   is_question_empty: false,
   is_option_empty: false,
   changed: true,
+  answers:[]
 };
 
 const reducer = (state, action) => {
@@ -35,6 +36,16 @@ const reducer = (state, action) => {
         ...state,
         changed: action.changed,
       }
+
+    case 'SET_ANSWERS':
+      return {
+        ...state,
+        answers : [
+        ...state.answers.slice(0, action.index),
+          action.answer,
+        ...state.answers.slice(action.index)
+    ]
+  }
     default:
       return state;
   }

@@ -2,11 +2,13 @@ import React, {useState} from 'react';
 import {EditText} from "react-edit-text";
 import {Minus} from "lucide-react";
 import "./Choice.css"
+import {useStateValue} from "../../../../../../../../StateProvider";
 
 function Choice(props) {
 
     const [name, setName] = useState(props.value);
     const [option, setOption] = useState(props.option);
+    const [state, dispatch] = useStateValue()
 
     function changeName(value) {
         setName(value.value)
@@ -21,17 +23,33 @@ function Choice(props) {
     let radioClass = "radio-option row"
     if (props.isStudent) {
         className = "container student"
-        radioClass = "radio-option row student-height"
+        radioClass = "radio-option row student-height no-event"
+    }
+
+    function onClickHandler(value) {
+        console.log(value.target.value)
+        dispatch({
+            type:'SET_ANSWERS',
+            index: props.questionIndex,
+            answer: {
+                type:"mcq",
+                index: props.questionIndex,
+                response:{
+                    student_id:localStorage.getItem('studentId'),
+                    answer: props.index,
+                }
+            },
+        })
     }
 
     return (<div className={"radio-container row"}>
         <div className={radioClass}>
             <label className={className}>
-                <input disabled={false} type="radio" value={props.value} name={props.name}/>
+                <input  onClick={onClickHandler} disabled={false} type="radio" value={props.value} name={props.name}/>
                 <span className="checkmark"/>
             </label>
             {props.isStudent ?
-                <p className={"radio-text radio-wrap"}>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasasdfasdfasfasdfasdfadsaaaaaaa</p> :
+                <p className={"radio-text radio-wrap"}>{name}</p> :
                 <div className={"radio-text-wrapper"}>
                     {/*<p className={"radio-text"} >aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>*/}
 

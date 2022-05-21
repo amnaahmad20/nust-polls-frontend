@@ -36,12 +36,12 @@ function StudentQuestion(props) {
 
             <div className={"question-heading"}>
                     <p
-                              className={"question-title student-wrap"}>{"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaname"}</p>
+                              className={"question-title student-wrap"}>{name}</p>
 
             </div>
             <FadeIn>
                 <div className={"question-details"}>
-                    {selected === "TextBased" ? <ShortText isStudent={true} /> : <MultipleChoice isStudent={true} published={props.published}
+                    {selected === "TextBased" ? <ShortText index={props.id} isStudent={true} /> : <MultipleChoice index={props.id} isStudent={true} published={props.published}
                                                                                id={props.id} question={question}/>}
                 </div>
             </FadeIn>

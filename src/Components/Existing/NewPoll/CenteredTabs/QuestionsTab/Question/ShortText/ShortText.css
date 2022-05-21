@@ -6,6 +6,55 @@
     font-weight: 300;
 }
 
+.short-text-wrapper{
+    display: flex;
+    justify-content: left;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width:100%;
+}
+
+.short-text-wrapper > div{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex-grow: 1;
+}
+
+.short-text-wrapper > div:first-child {
+    max-width: 100% ;
+    text-align: left;
+    width: 20px;
+}
+
 .student{
     pointer-events: all !important;
+    transition: 0.3s;
+    caret-color: #085B91;
+    border-radius: 5px;
+}
+
+.student:hover{
+    color: #085B91 ;
+    background-color: #EFF5F9 ;
+    /*border-bottom: 1px solid #EFF5F9;*/
+}
+
+.student:active{
+    color: #085B91 !important;
+    /*margin:  0 !important;*/
+    /*padding: 0 0 0 10px !important;*/
+    background-color: #dde7ef !important;
+}
+.student:focus{
+    /*margin:  0 !important;*/
+    /*padding: 0 0 0 10px !important;*/
+    width: 100%;
+    border: none;
+    outline: none;
+    background-color: #dde7ef;
+    color: #085B91;
+    margin-top: 2px;
+    box-shadow: 0 2px 0 #085B91;
 }

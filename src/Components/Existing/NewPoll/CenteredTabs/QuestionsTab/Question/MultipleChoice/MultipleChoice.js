@@ -25,7 +25,7 @@ function MultipleChoice(props) {
     return (
         <div>
             {options && options.length > 0 && options.map((option) => (
-                <Choice isStudent={props.isStudent} published={props.published} index={options.indexOf(option)}  onRename={renameOption} onDelete={deleteOption} length={options.length} option={option} key={option.id} value={option.text} name={"id"}/>
+                <Choice isStudent={props.isStudent} published={props.published} questionIndex={props.index} index={options.indexOf(option)}  onRename={renameOption} onDelete={deleteOption} length={options.length} option={option} key={option.id} value={option.text} name={"id"}/>
             ))}
             { !props.published && <AddChoice onAddOption={addOption} /> }
 

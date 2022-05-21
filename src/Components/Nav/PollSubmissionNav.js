@@ -5,13 +5,12 @@ import pollsLogo from "../../img/logo.svg";
 import {useNavigate} from "react-router-dom";
 import {useStateValue} from "../../StateProvider";
 import {toast} from "react-toastify";
-import axios from "axios";
-
+import axios from "../../axios";
 function PollSubmissionNav(props) {
 
     const navigate = useNavigate();
 
-    const [{published_on, deadline, is_question_empty, is_option_empty, changed}, dispatch] = useStateValue()
+    const [{published_on, deadline, is_question_empty, is_option_empty, changed, answers}, dispatch] = useStateValue()
 
 
     const publishedOnRef = useRef(published_on);
@@ -28,9 +27,7 @@ function PollSubmissionNav(props) {
 
     const [overlayClass, setOverlayClass] = useState("loading-overlay");
 
-    const finalizeUrl = 'http://localhost:9000/polls/finalize/' + localStorage.getItem('pollId');
-    const editQuestionUrl = 'http://localhost:9000/polls/edit/' + localStorage.getItem('pollId');
-
+    const submitUrl = '/polls/student/response/' + localStorage.getItem('pollId');
 
     function validationChecks(published_on,deadline,isQuestionEmpty,isOptionEmpty){
         setOverlayClass("loading-overlay")
@@ -68,34 +65,22 @@ function PollSubmissionNav(props) {
 
     }
 
-    async function finalizeRequest(){
+    async function submitRequest(){
         setOverlayClass("loading-overlay visible")
-        const publishRequest = await axios.post(editQuestionUrl, {
-            published: true,
-        }, {
+
+        axios.post(submitUrl,{
+           ...answers
+        },{
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
             }
         }).then(res => {
-            console.log("sending request")
+            console.log("sending submit request")
+            console.log("res");
             console.log(res);
-        }).catch(err => console.log(err.message))
-
-        const responseRequest = await axios.get(finalizeUrl, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`,
-            }
-        })
-
-        axios.all([publishRequest,responseRequest]).then(axios.spread ((...responses) => {
-            console.log("sending finalize request")
-            console.log("responses[0]");
-            console.log(responses[0]);
-            console.log("responses[1]");
-            console.log(responses[1]);
             setOverlayClass("loading-overlay")
-            navigate('/view-polls');
-        })).catch(errs => console.log(errs))
+            // navigate('/view-polls');
+        }).catch(errs => console.log(errs))
 
 
 
@@ -114,23 +99,23 @@ function PollSubmissionNav(props) {
         }
     }, [changed])
 
-    async function finalizeHandler() {
-        if (changed) {
-            setOverlayClass("loading-overlay visible")
-            const timer = setTimeout(async () => {
-                if (validationChecks(publishedOnRef.current, deadlineRef.current, isQuestionEmptyRef.current, isOptionEmptyRef.current)) {
-                    await finalizeRequest()
-                }
-
-            }, 2500);
-            return () => {
-                clearTimeout(timer)
-            };
-        } else {
-            if (validationChecks(published_on, deadline, is_question_empty, is_option_empty)) {
-                await finalizeRequest()
-            }
-        }
+    async function submitHandler() {
+        // if (changed) {
+        //     setOverlayClass("loading-overlay visible")
+        //     const timer = setTimeout(async () => {
+        //         // if (validationChecks(publishedOnRef.current, deadlineRef.current, isQuestionEmptyRef.current, isOptionEmptyRef.current)) {
+        //         // }
+        //         await finalizeRequest()
+        //
+        //     }, 500);
+        //     return () => {
+        //         clearTimeout(timer)
+        //     };
+        // } else {
+        //     if (validationChecks(published_on, deadline, is_question_empty, is_option_empty)) {
+                await submitRequest()
+            // }
+        // }
     }
 
     function backHandler() {
@@ -155,7 +140,7 @@ function PollSubmissionNav(props) {
                     <ChevronLeft className={"back-arrow"} color={"#085B91"} size={40} onClick={backHandler}/>
                     <img src={pollsLogo} onClick={homeHandler} alt="logo"/>
                 </div>
-                <button className="logout reg-button" onClick={finalizeHandler}>
+                <button className="logout reg-button" onClick={submitHandler}>
                     Submit
                 </button>
             </div>
