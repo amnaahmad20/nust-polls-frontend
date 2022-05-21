@@ -17,16 +17,22 @@ function Choice(props) {
         props.onDelete(props.index)
     }
 
+    let className = "container"
+
+    if(props.isStudent) className="container student"
 
     return (
         <div    className={"radio-container row"} >
         <div className={"radio-option row"} >
 
-            <label className="container">
-                <input disabled={true} type="radio" value={props.value} name={props.name} />
+            <label className={className}>
+                <input disabled={false} type="radio" value={props.value} name={props.name} />
                     <span className="checkmark"/>
             </label>
-            <EditText readonly={props.published} inline={true} defaultValue={name} placeholder={props.value} onSave={changeName} className={"radio-text"} />
+            <div className={"radio-text-wrapper"} >
+                {/*<p className={"radio-text"} >aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>*/}
+                <EditText readonly={props.published} inline={true} defaultValue={name} placeholder={"Unnamed Option"} onSave={changeName} className={"radio-text"} />
+            </div>
         </div>
         { props.length > 1 && !props.published && <Minus strokeWidth={5} size={25} id={"delete-option"} onClick={deleteOption}>Delete</Minus>}
         </div>

@@ -17,9 +17,15 @@ function Nav() {
     navigate('/login');
   };
 
+  function homeHandler() {
+    //to do
+    navigate('/dash');
+  }
+
+
   return (
     <div className="nav">
-      <img src={pollsLogo} alt="logo" />
+      <img src={pollsLogo} onClick={homeHandler} alt="logo" />
       {user && (
         <button className="logout reg-button" onClick={logoutHandler}>
           Log Out

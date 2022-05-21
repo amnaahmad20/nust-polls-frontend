@@ -23,7 +23,10 @@ function Main() {
       const res = await axios.post('/user/login', { username, password });
       toast.success(res.data.message);
       localStorage.setItem('token', res.data.token);
-      localStorage.setItem('adminId',res.data.data.admin._id)
+      if (res.data.data.admin)
+        localStorage.setItem('adminId',res.data.data.admin._id)
+      else localStorage.setItem('studentId',res.data.data.student._id)
+
       // localStorage.setItem('admin', res.data.admin);
       dispatch({
         type: 'SET_USER',

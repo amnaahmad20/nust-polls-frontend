@@ -52,7 +52,9 @@ function OldPoll(props) {
 
     function getOnClick() {
         if (props.published) {         //to do something
+            localStorage.setItem('pollId', props.id)
             console.log("finalized poll")
+            navigate("/create-poll")
         } else {
             localStorage.setItem('pollId', props.id)
             navigate("/create-poll")
@@ -60,13 +62,12 @@ function OldPoll(props) {
     }
 
     return (
-
         <div className={"base2"}>
 
             <div className={"cover"}>
 
-                <img src={nust} alt={"form-img"}/>
-
+                <img src={nust} onClick={getOnClick} alt={"form-img"}/>
+                { !props.published && <p className={"draft-text"} onClick={getOnClick} > Draft </p>}
                 <button onClick={toggleList}>
                     <MoreHorizontal color={"#085B91"} strokeWidth={"2"} size={"17"}/>
                 </button>

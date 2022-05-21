@@ -5,3 +5,7 @@
     font-size: 14px;
     font-weight: 300;
 }
+
+.student{
+    pointer-events: all !important;
+}

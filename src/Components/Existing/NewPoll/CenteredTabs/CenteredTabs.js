@@ -11,6 +11,7 @@ import ResponseTab from "./ResponsesTab/ResponseTab";
 import SettingTab from "./SettingTab/SettingTab";
 import {useState} from "react";
 import { useSpring, animated } from 'react-spring'
+import {ToastContainer} from "react-toastify";
 
 
 const Tab = styled(TabUnstyled)`
@@ -94,6 +95,7 @@ export default function CenteredTabs() {
 
     return (
         <TabsUnstyled value={value} onChange={(e,index)=>handleChange(e,index)} defaultValue={1}>
+            <ToastContainer position="bottom-right" />
             <div className={"tabs"} >
                 <TabsList>
                     <span className={"tab-button first"} id={"tab-back"} />

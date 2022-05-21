@@ -1,14 +1,13 @@
 import React, {useEffect, useRef, useState} from 'react';
+import {Puff} from "react-loading-icons";
+import {ChevronLeft} from "lucide-react";
 import pollsLogo from "../../img/logo.svg";
-import {ChevronLeft} from 'lucide-react'
-import "./PollCreationNav.css"
 import {useNavigate} from "react-router-dom";
 import {useStateValue} from "../../StateProvider";
 import {toast} from "react-toastify";
-import {Puff} from "react-loading-icons";
 import axios from "axios";
 
-function PollCreationNav(props) {
+function PollSubmissionNav(props) {
 
     const navigate = useNavigate();
 
@@ -144,7 +143,8 @@ function PollCreationNav(props) {
         navigate('/dash');
     }
 
-    return (<div>
+    return (
+        <div>
 
             <div className={overlayClass}><Puff className={"loader"} transform={"scale(2)"} stroke="#085B91"
                                                 strokeOpacity={.125} speed={.75}/></div>
@@ -156,12 +156,11 @@ function PollCreationNav(props) {
                     <img src={pollsLogo} onClick={homeHandler} alt="logo"/>
                 </div>
                 <button className="logout reg-button" onClick={finalizeHandler}>
-                    Finalize
+                    Submit
                 </button>
             </div>
         </div>
-
     );
 }
 
-export default PollCreationNav;
+export default PollSubmissionNav;

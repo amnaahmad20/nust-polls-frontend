@@ -24,6 +24,7 @@
     padding: 20px;
     margin: 15px 0;
     transition: all 0.3s;
+
 }
 
 .question-body:focus-within {

@@ -82,7 +82,7 @@ function Question(props) {
         </div>
         <FadeIn>
             <div className={"question-details"}>
-                {selected === "TextBased" ? <ShortText/> : <MultipleChoice published={props.published}
+                {selected === "TextBased" ? <ShortText isStudent={false} /> : <MultipleChoice isStudent={false} published={props.published}
                                                                            onDeleteOption={deleteOptionHandler}
                                                                            onAddOption={addOptionHandler}
                                                                            onRenameOption={renameOptionHandler}
