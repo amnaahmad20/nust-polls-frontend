@@ -69,7 +69,7 @@ function PollSubmissionNav(props) {
         setOverlayClass("loading-overlay visible")
 
         axios.post(submitUrl,{
-           ...answers
+           answers : answers
         },{
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
