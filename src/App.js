@@ -1,15 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import Main from './Main';
 import Nav from './Components/Nav/Nav';
 import Dashboard from './Components/Dashboard/Dashboard';
 import './css/App.css';
-import {ToastContainer} from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import './css/App.css';
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import jwtDecode from 'jwt-decode';
 import 'react-toastify/dist/ReactToastify.css';
 import CreatePolls from './Components/Creation/CreatePolls';
@@ -17,14 +13,15 @@ import ExistingPolls from './Components/Existing/ExistingPolls';
 import ForgotPassword from './Components/Forms/ForgotPassword';
 import ResetPassword from './Components/Forms/ResetPassword';
 import { useStateValue } from './StateProvider';
-import EditPoll from "./Components/Existing/EditPoll/EditPoll";
-import PollCreationNav from "./Components/Nav/PollCreationNav";
-import StudentDashBoard from "./Components/StudentDashBoard/StudentDashBoard";
-import SubmitPoll from "./Components/StudentDashBoard/StudentPoll/SubmitPoll/SubmitPoll";
-import PollSubmissionNav from "./Components/Nav/PollSubmissionNav";
+import EditPoll from './Components/Existing/EditPoll/EditPoll';
+import PollCreationNav from './Components/Nav/PollCreationNav';
+import PollResponsesNav from './Components/Nav/PollResponsesNav';
+import StudentDashBoard from './Components/StudentDashBoard/StudentDashBoard';
+import SubmitPoll from './Components/StudentDashBoard/StudentPoll/SubmitPoll/SubmitPoll';
+import PollSubmissionNav from './Components/Nav/PollSubmissionNav';
 
 function App() {
-  const [{ user }, dispatch] = useStateValue();
+  const [{ user, responseTab }, dispatch] = useStateValue();
 
   useEffect(() => {
     if (localStorage.getItem('token')) {
@@ -82,8 +79,8 @@ function App() {
             path="/student"
             element={
               <div className="App">
-              <Nav  />
-              <StudentDashBoard/>
+                <Nav />
+                <StudentDashBoard />
               </div>
             }
           ></Route>
@@ -100,29 +97,29 @@ function App() {
             path="/create-poll"
             element={
               <div className="App">
-                <PollCreationNav />
+                {!responseTab ? <PollCreationNav /> : <PollResponsesNav />}
                 <CreatePolls />
               </div>
             }
           ></Route>
-            <Route
-                path="/submit-poll"
-                element={
-                    <div className="App">
-                        <PollSubmissionNav />
-                        <SubmitPoll />
-                    </div>
-                }
-            ></Route>
-            <Route
-                path="/edit-poll"
-                element={
-                    <div className="App">
-                        <PollCreationNav />
-                        <EditPoll />
-                    </div>
-                }
-            ></Route>
+          <Route
+            path="/submit-poll"
+            element={
+              <div className="App">
+                <PollSubmissionNav />
+                <SubmitPoll />
+              </div>
+            }
+          ></Route>
+          <Route
+            path="/edit-poll"
+            element={
+              <div className="App">
+                <PollCreationNav />
+                <EditPoll />
+              </div>
+            }
+          ></Route>
           <Route
             path="/view-polls"
             element={

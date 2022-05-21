@@ -145,7 +145,7 @@ function ResponseTab(props) {
             <div>
               <p className="responses-no">{`${responses[qIndex].responses.length} responses`}</p>
               {question.options ? (
-                question.options.length < 3 ? (
+                question.options.length < 4 ? (
                   <DoughnutChart
                     labelSet={question.options}
                     dataSet={calculateCount(question.options, qIndex)}
@@ -158,8 +158,9 @@ function ResponseTab(props) {
                 )
               ) : (
                 <div>
-                  {responses[qIndex].responses.map((response) => (
+                  {responses[qIndex].responses.map((response, index) => (
                     <Response
+                      key={index}
                       answer={response.answer}
                       username={response.username}
                     />
