@@ -54,10 +54,9 @@ function ExistingPolls(props) {
     <div className={'main'}>
       <div className={'header'}>
         <h3>
-          {(user?.admin && `${user.admin.firstName} ${user.admin.lastName}`) ||
-            (user?.student &&
-              `${user?.student.firstName} ${user?.student.lastName}`) ||
-            `${user?.firstName} ${user?.lastName}`}
+          {user?.admin
+            ? `${user.admin.firstName} ${user.admin.lastName}`
+            : `${user?.firstName} ${user?.lastName}`}
           's Polls
         </h3>
         <button className={'sort'}>

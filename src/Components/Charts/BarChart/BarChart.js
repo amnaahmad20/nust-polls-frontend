@@ -67,6 +67,10 @@ const DoughnutChart = ({ labelSet, dataSet }) => {
         },
       },
     },
+    // animation: {
+    //   duration: 800,
+    //   easing: 'easeInSine',
+    // },
   };
 
   const colors = [
