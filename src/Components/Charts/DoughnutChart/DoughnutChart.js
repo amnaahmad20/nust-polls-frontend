@@ -33,6 +33,9 @@ const DoughnutChart = ({ labelSet, dataSet }) => {
           padding: 12,
           usePointStyle: true,
           pointStyle: 'circle',
+          font: {
+            size: 13,
+          },
         },
       },
     },
