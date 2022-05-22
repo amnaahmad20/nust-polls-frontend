@@ -1,10 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import pollsLogo from '../../img/logo.svg';
 import { ChevronLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { useStateValue } from '../../StateProvider';
-import { toast } from 'react-toastify';
-import { Puff } from 'react-loading-icons';
+import { pdfPrintHandler } from '../Existing/NewPoll/CenteredTabs/ResponsesTab/ResponseTab';
 
 const PollResponsesNav = (props) => {
   const navigate = useNavigate();
@@ -18,11 +16,6 @@ const PollResponsesNav = (props) => {
     navigate('/dash');
   }
 
-  const printHandler = () => {
-    //to do
-    console.log('Print');
-  };
-
   return (
     <div className="nav">
       <div>
@@ -34,7 +27,7 @@ const PollResponsesNav = (props) => {
         />
         <img src={pollsLogo} onClick={homeHandler} alt="logo" />
       </div>
-      <button className="logout reg-button" onClick={printHandler}>
+      <button className="logout reg-button" onClick={pdfPrintHandler}>
         Print
       </button>
     </div>
