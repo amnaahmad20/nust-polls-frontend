@@ -168,7 +168,7 @@ function SettingTab(props) {
                                     altInput: true,
                                     altFormat: "F j, Y",
                                     dateFormat: "Y-m-d",
-                                    altInputClass: "input-button",
+                                    altInputClass: "input-button startd",
                                     disableMobile: true,
                                     "plugins": [new rangePlugin({input: endDate})],
                                 }}
@@ -221,7 +221,7 @@ function SettingTab(props) {
                             dateFormat: "h:i K",
                             altInput: true,
                             disableMobile: true,
-                            altInputClass: "input-button",
+                            altInputClass: "input-button endd",
                             minuteIncrement: 1,
                         }}
                         value={time}
@@ -255,7 +255,7 @@ function SettingTab(props) {
                                 dateFormat: "h:i K",
                                 altInput: true,
                                 disableMobile: true,
-                                altInputClass: "input-button",
+                                altInputClass: "input-button startt",
                                 minuteIncrement: 1,
                             }}
                             value={endTime}
@@ -281,7 +281,7 @@ function SettingTab(props) {
                                 minTime: "00:00",
                                 dateFormat: "h:i K",
                                 altInput: true,
-                                altInputClass: "input-button",
+                                altInputClass: "input-button endt",
                                 minuteIncrement: 1,
                             }}
                             value={endTime}

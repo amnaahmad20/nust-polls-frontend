@@ -64,9 +64,16 @@ const DoughnutChart = ({ labelSet, dataSet }) => {
           padding: 12,
           usePointStyle: true,
           pointStyle: 'circle',
+          font: {
+            size: 13,
+          },
         },
       },
     },
+    // animation: {
+    //   duration: 800,
+    //   easing: 'easeInSine',
+    // },
   };
 
   const colors = [

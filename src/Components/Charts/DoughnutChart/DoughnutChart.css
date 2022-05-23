@@ -1,12 +1,11 @@
 .doughnut-chart {
-  padding: 20px 1% 15px 1%;
+  padding: 10px 1%;
   margin: auto;
   width: 40%;
 }
 
 @media only screen and (max-width: 752px) {
   .doughnut-chart {
-    padding: 15px 1% 10px 1%;
     width: 60%;
   }
 }

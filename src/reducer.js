@@ -7,6 +7,7 @@ export const initialState = {
     changed: true,
     is_questions_unfilled: true,
     submit: false,
+    responseTab: false,
     answers: []
 };
 
@@ -47,6 +48,12 @@ const reducer = (state, action) => {
                     [...state.answers.slice(0, action.index), action.answer, ...state.answers.slice(action.index + 1)],
             }
 
+            case 'SET_RESPONSE_TAB':
+              return {
+                ...state,
+                responseTab: action.responseTab,
+              };
+        
         case 'SUBMIT':
             return {
                 ...state, submit: action.submit

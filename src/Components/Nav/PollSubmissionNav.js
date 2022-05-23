@@ -96,7 +96,7 @@ function PollSubmissionNav(props) {
         }
 
     }, [is_questions_unfilled]);
-    
+
     async function submitRequest(){
 
         dispatch({

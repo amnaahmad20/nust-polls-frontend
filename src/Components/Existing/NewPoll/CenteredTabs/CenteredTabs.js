@@ -6,16 +6,16 @@ import TabPanelUnstyled from '@mui/base/TabPanelUnstyled';
 import { buttonUnstyledClasses } from '@mui/base/ButtonUnstyled';
 import TabUnstyled, { tabUnstyledClasses } from '@mui/base/TabUnstyled';
 import $ from 'jquery';
-import QuestionsTab from "./QuestionsTab/QuestionsTab";
-import ResponseTab from "./ResponsesTab/ResponseTab";
-import SettingTab from "./SettingTab/SettingTab";
-import {useState} from "react";
-import { useSpring, animated } from 'react-spring'
-import {ToastContainer} from "react-toastify";
-
+import QuestionsTab from './QuestionsTab/QuestionsTab';
+import ResponseTab from './ResponsesTab/ResponseTab';
+import SettingTab from './SettingTab/SettingTab';
+import { useState } from 'react';
+import { useSpring, animated } from 'react-spring';
+import { ToastContainer } from 'react-toastify';
+import { useStateValue } from '../../../../StateProvider';
 
 const Tab = styled(TabUnstyled)`
-  color: #085B91;
+  color: #085b91;
   cursor: pointer;
   font-size: 0.875rem;
   font-weight: bold;
@@ -35,7 +35,7 @@ const Tab = styled(TabUnstyled)`
     padding: 6px 16px;
   }
 
-    &.${tabUnstyledClasses.selected} {
+  &.${tabUnstyledClasses.selected} {
     transition: 0.3s;
     color: white;
   }
@@ -60,66 +60,94 @@ const TabsList = styled(TabsListUnstyled)`
   align-items: center;
   justify-content: center;
   align-content: space-between;
-  
+
   @media only screen and (max-width: 400px) {
     min-width: 150px;
     flex-direction: column;
     text-align: center;
   }
-
-
 `;
 
-function first(){
-    $('#tab-back').attr("class","tab-button first")
+function first() {
+  $('#tab-back').attr('class', 'tab-button first');
 }
-function second(){
-    $('#tab-back').attr("class","tab-button")
+function second() {
+  $('#tab-back').attr('class', 'tab-button');
 }
-function third(){
-    $('#tab-back').attr("class","tab-button third")
+function third() {
+  $('#tab-back').attr('class', 'tab-button third');
 }
-
 
 export default function CenteredTabs() {
+  const [{ responseTab }, dispatch] = useStateValue();
 
-    const [value, setValue] = useState(1);
+  const [value, setValue] = useState(1);
 
+  const handleChange = (event, newValue) => {
+    console.log(newValue);
+    setValue(newValue);
+  };
 
-    const handleChange = (event, newValue) => {
-        console.log(newValue);
-        setValue(newValue);
-    };
-
-
-
-    return (
-        <TabsUnstyled value={value} onChange={(e,index)=>handleChange(e,index)} defaultValue={1}>
-            <ToastContainer position="bottom-right" />
-            <div className={"tabs"} >
-                <TabsList>
-                    <span className={"tab-button first"} id={"tab-back"} />
-                    <Tab onClick={first} >Questions</Tab>
-                    <Tab onClick={second} >Responses</Tab>
-                    <Tab onClick={third} >Settings</Tab>
-                </TabsList>
-            </div>
-            <TabPanel hidden={value !== 1} value={value} index={0} >
-
-                <div className={"create-container"} >
-                    <QuestionsTab/>
-                </div>
-                </TabPanel>
-            <TabPanel hidden={value !== 2} value={value} index={1} >
-                <div className={"create-container"} >
-                    <ResponseTab/>
-                </div>
-                </TabPanel>
-            <TabPanel hidden={value !== 3} value={value} index={2} >
-                <div className={"create-container"} >
-                    <SettingTab/>
-                </div>
-                </TabPanel>
-        </TabsUnstyled>
-    );
+  return (
+    <TabsUnstyled
+      value={value}
+      onChange={(e, index) => handleChange(e, index)}
+      defaultValue={1}
+    >
+      <ToastContainer position="bottom-right" />
+      <div className={'tabs'}>
+        <TabsList>
+          <span className={'tab-button first'} id={'tab-back'} />
+          <Tab
+            onClick={() => {
+              first();
+              dispatch({
+                type: 'SET_RESPONSE_TAB',
+                responseTab: false,
+              });
+            }}
+          >
+            Questions
+          </Tab>
+          <Tab
+            onClick={() => {
+              second();
+              dispatch({
+                type: 'SET_RESPONSE_TAB',
+                responseTab: true,
+              });
+            }}
+          >
+            Responses
+          </Tab>
+          <Tab
+            onClick={() => {
+              third();
+              dispatch({
+                type: 'SET_RESPONSE_TAB',
+                responseTab: false,
+              });
+            }}
+          >
+            Settings
+          </Tab>
+        </TabsList>
+      </div>
+      <TabPanel hidden={value !== 1} value={value} index={0}>
+        <div className={'create-container'}>
+          <QuestionsTab />
+        </div>
+      </TabPanel>
+      <TabPanel hidden={value !== 2} value={value} index={1}>
+        <div className={'create-container'}>
+          <ResponseTab />
+        </div>
+      </TabPanel>
+      <TabPanel hidden={value !== 3} value={value} index={2}>
+        <div className={'create-container'}>
+          <SettingTab />
+        </div>
+      </TabPanel>
+    </TabsUnstyled>
+  );
 }
