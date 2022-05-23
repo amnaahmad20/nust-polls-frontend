@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {EditText} from "react-edit-text";
 import {Minus} from "lucide-react";
 import "./Choice.css"
@@ -9,8 +9,11 @@ function Choice(props) {
     const [name, setName] = useState(props.value);
     const [option, setOption] = useState(props.option);
     const [state, dispatch] = useStateValue()
+    const [invalid, setInvalid] = useState("");
+    const [value, setValue] = useState("");
 
     function changeName(value) {
+
         setName(value.value)
         setOption(props.onRename(props.index, value.value))
     }
@@ -26,8 +29,19 @@ function Choice(props) {
         radioClass = "radio-option row student-height no-event"
     }
 
+    useEffect(() => {
+        if(name === "") setInvalid("invalid")
+        else setInvalid("")
+    }, [name]);
+
+    useEffect(() => {
+        props.getValueHandler(value)
+    }, [value]);
+
+
     function onClickHandler(value) {
         console.log(value.target.value)
+        setValue(value.target.value)
         dispatch({
             type:'SET_ANSWERS',
             index: props.questionIndex,
@@ -40,21 +54,22 @@ function Choice(props) {
                 }
             },
         })
+
     }
 
-    return (<div className={"radio-container row"}>
-        <div className={radioClass}>
+    return (<div className={"radio-container row "}>
+        <div className={radioClass +" "+ invalid}>
             <label className={className}>
                 <input  onClick={onClickHandler} disabled={false} type="radio" value={props.value} name={props.name}/>
-                <span className="checkmark"/>
+                <span className={"checkmark"+ invalid}/>
             </label>
             {props.isStudent ?
                 <p className={"radio-text radio-wrap"}>{name}</p> :
-                <div className={"radio-text-wrapper"}>
+                <div className={"radio-text-wrapper" }>
                     {/*<p className={"radio-text"} >aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>*/}
 
                     <EditText readonly={props.published} inline={true} defaultValue={name}
-                              placeholder={"Unnamed Option"} onSave={changeName} className={"radio-text"}/>
+                              placeholder={"Unnamed Option"} onSave={changeName} className={"radio-text"+" "+ invalid+"-text"}/>
                 </div>}
 
         </div>

@@ -145,7 +145,15 @@ function QuestionsTab(props) {
                         localStorage.setItem('questionId', response.data.questions[0]._id)
                         setName(response.data.poll_name)
                         setDescription(response.data.description)
-                        setQuestions(fetchQuestions(response.data.questions[0].mcq ? response.data.questions[0].mcq : [], response.data.questions[0].text_based ? response.data.questions[0].text_based : []))
+                        const tempQuestions = fetchQuestions(response.data.questions[0].mcq ? response.data.questions[0].mcq : [], response.data.questions[0].text_based ? response.data.questions[0].text_based : [])
+                        setQuestions(tempQuestions)
+                        getIfEmpty(tempQuestions)
+                        console.log("sending dispatch");
+                        dispatch({
+                            type: 'SET_IS_EMPTY',
+                            is_question_empty: isQuestionEmptyRef.current,
+                            is_option_empty: isOptionEmptyRef.current,
+                        })
                         setIsPublished(response.data.published)
                     });
                 } catch (error) {

@@ -63,7 +63,7 @@ function SubmitPoll(props) {
     const [style, animate] = useSpring(() => ({height: "0px"}), []);
     const [toggle, setToggle] = useState(false);
 
-    const [state, dispatch] = useStateValue()
+    const [{submit,answers}, dispatch] = useStateValue()
 
     const fetchUrl = 'http://localhost:9000/polls/ques/' + localStorage.getItem('pollId');
 
@@ -86,7 +86,16 @@ function SubmitPoll(props) {
                     localStorage.setItem('questionId', response.data.questions[0]._id)
                     setName(response.data.poll_name)
                     setDescription(response.data.description)
-                    setQuestions(fetchQuestions(response.data.questions[0].mcq ? response.data.questions[0].mcq : [], response.data.questions[0].text_based ? response.data.questions[0].text_based : []))
+                    let tempQuestions = fetchQuestions(response.data.questions[0].mcq ? response.data.questions[0].mcq : [], response.data.questions[0].text_based ? response.data.questions[0].text_based : [])
+                    setQuestions(tempQuestions)
+                    // tempQuestions.forEach((question,index)=>{
+                    // console.log(index)
+                    // dispatch({
+                    //     type:'SET_ANSWERS',
+                    //     index: props.index,
+                    //     answer:""
+                    // })
+                    // })
                     setIsPublished(response.data.published)
                 });
             } catch (error) {
@@ -96,12 +105,57 @@ function SubmitPoll(props) {
         };
         // if(isCreated) {
         fetchData().then(r => console.log("fetch request complete"))
-
         // }
         return {
             loading,
         };
     }, []);
+
+    useEffect(() => {
+        console.log("answers")
+        console.log(answers)
+    }, [answers]);
+
+    useEffect(() => {
+        questions.forEach((question,index)=>{
+        console.log(index)
+        dispatch({
+            type:'SET_ANSWERS',
+            index: index,
+            answer:null,
+        })
+        })
+    }, [questions]);
+
+    useEffect(() => {
+        if(submit){
+            let questions_unfilled = false;
+
+
+
+            if(answers.length < questions.length){
+                questions_unfilled = true
+            }else{
+                for (let i=0; i<answers.length ; i++){
+                    if (answers[i] == null) {
+                        questions_unfilled = true
+                        break
+                    }else if (answers[i].response.answer === " "){
+                        questions_unfilled = true
+                        break
+                    }
+                }
+            }
+            dispatch({
+                type: 'SET_IS_QUESTION_UNFILLED',
+                is_questions_unfilled: questions_unfilled,
+            })
+            dispatch({
+                type:"SUBMIT",
+                submit:false,
+            })
+        }
+    }, [submit]);
 
 
     useEffect(() => {
@@ -193,6 +247,7 @@ function SubmitPoll(props) {
                             className={"poll-desc student-wrap"}>{description}</p>
                     </div>}
                     {!loading && questions.length > 0 && questions.map((question) => (<StudentQuestion key={question.id}
+                                                                                                       questionsLength={questions.length}
                                                                                                        id={questions.indexOf(question)}
                                                                                                        question={question}
                                                                                                        published={isPublished}/>))}

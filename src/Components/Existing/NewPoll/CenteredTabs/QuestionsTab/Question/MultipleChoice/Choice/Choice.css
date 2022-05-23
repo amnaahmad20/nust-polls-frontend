@@ -51,7 +51,7 @@
 .radio-option{
     display: flex;
     align-items: center;
-    padding: 5px 13px;
+    padding: 2px 13px;
     border-radius: 7px;
     margin:  2.5px 0;
     max-height: 29px !important;
@@ -183,7 +183,16 @@
     border-radius: 50%;
 }
 
-
+.checkmarkinvalid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 15px;
+    width: 15px;
+    border : 2px solid rgba(116, 2, 23, 0.2);
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 50%;
+}
 
 /* When the radio button is checked, add a blue background */
 .container input:checked ~ .checkmark {

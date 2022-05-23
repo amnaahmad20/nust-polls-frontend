@@ -10,7 +10,7 @@ function PollSubmissionNav(props) {
 
     const navigate = useNavigate();
 
-    const [{published_on, deadline, is_question_empty, is_option_empty, changed, answers}, dispatch] = useStateValue()
+    const [{published_on, deadline, is_question_empty, is_option_empty, changed, answers, questions_length,is_questions_unfilled}, dispatch] = useStateValue()
 
 
     const publishedOnRef = useRef(published_on);
@@ -22,6 +22,10 @@ function PollSubmissionNav(props) {
     const isQuestionEmptyRef = useRef(is_question_empty);
     isQuestionEmptyRef.current = is_question_empty
 
+
+    const isQuestionsUnfilledRef = useRef(is_questions_unfilled);
+    isQuestionsUnfilledRef.current = is_questions_unfilled
+
     const isOptionEmptyRef = useRef(is_option_empty);
     isOptionEmptyRef.current = is_option_empty
 
@@ -29,59 +33,90 @@ function PollSubmissionNav(props) {
 
     const submitUrl = '/polls/student/response/' + localStorage.getItem('pollId');
 
-    function validationChecks(published_on,deadline,isQuestionEmpty,isOptionEmpty){
-        setOverlayClass("loading-overlay")
+    function validationChecks(){
 
-        if (isQuestionEmpty) {
-            toast.error("Question statement can't be empty")
-            return false;
+        if(isQuestionsUnfilledRef.current){
+            toast.error("All questions need to be attempted")
+            return false
         }
-        if (isOptionEmpty) {
-            toast.error("Option statement can't be empty")
-            return false;
 
-        }
-        if (published_on == null) {
-            toast.error("Posting Date can't be empty")
-            return false;
-
-        }
-        else if (published_on.getTime() < new Date().getTime()) {
-            toast.error("Posting Date can't be a past date")
-            return false;
-
-        }
-        if (deadline == null) {
-            toast.error("Deadline can't be empty")
-            return false;
-
-        }
-        else if (deadline.getTime() <= new Date().getTime()) {
-            toast.error("Deadline Date can't be a past date")
-            return false;
-
-        }
+        // if (isQuestionEmpty) {
+        //     toast.error("Question statement can't be empty")
+        //     return false;
+        // }
+        // if (isOptionEmpty) {
+        //     toast.error("Option statement can't be empty")
+        //     return false;
+        //
+        // }
+        // if (published_on == null) {
+        //     toast.error("Posting Date can't be empty")
+        //     return false;
+        //
+        // }
+        // else if (published_on.getTime() < new Date().getTime()) {
+        //     toast.error("Posting Date can't be a past date")
+        //     return false;
+        //
+        // }
+        // if (deadline == null) {
+        //     toast.error("Deadline can't be empty")
+        //     return false;
+        //
+        // }
+        // else if (deadline.getTime() <= new Date().getTime()) {
+        //     toast.error("Deadline Date can't be a past date")
+        //     return false;
+        //
+        // }
         return true;
 
     }
 
-    async function submitRequest(){
-        setOverlayClass("loading-overlay visible")
 
-        axios.post(submitUrl,{
-           answers : answers
-        },{
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`,
+    useEffect(() => {
+        if(!is_questions_unfilled) {
+            if (validationChecks()) {
+                setOverlayClass("loading-overlay visible")
+
+                axios.post(submitUrl, {
+                    answers: answers
+                }, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}`,
+                    }
+                }).then(res => {
+                    console.log("sending submit request")
+                    console.log("res");
+                    console.log(res);
+                    setOverlayClass("loading-overlay")
+                    // navigate('/view-polls');
+                }).catch(errs => console.log(errs))
             }
-        }).then(res => {
-            console.log("sending submit request")
-            console.log("res");
-            console.log(res);
-            setOverlayClass("loading-overlay")
-            // navigate('/view-polls');
-        }).catch(errs => console.log(errs))
+        }
 
+    }, [is_questions_unfilled]);
+    
+    async function submitRequest(){
+
+        dispatch({
+            type:"SUBMIT",
+            submit: true
+        })
+
+
+        // console.log("before timeout")
+        // console.log(is_questions_unfilled);
+        //
+        // const timer = setTimeout(async () => {
+        //     console.log("after timeout")
+        //     console.log(isQuestionsUnfilledRef.current);
+        //
+        // }, 20);
+        //
+        // return () => {
+        //     clearTimeout(timer)
+        // };
 
 
     }

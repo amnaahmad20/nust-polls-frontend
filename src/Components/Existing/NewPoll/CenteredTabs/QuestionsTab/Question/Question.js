@@ -22,18 +22,23 @@ function Question(props) {
     const [isAdded, setIsAdded] = useState(0);
     const [question, setQuestion] = useState(props.question);
 
+    const [invalid, setInvalid] = useState("");
+
     function changeName(value) {
         setName(value.value)
         setQuestion(props.rename(value.value,props.id))
     }
+
+    useEffect(() => {
+        if(name === "") setInvalid("invalid")
+        else setInvalid("")
+    }, [name]);
 
     const [selected, setSelected] = useState(props.question.type);
 
     const HandleSelection = (val) => {
         setSelected(val)
     }
-
-
 
     function deleteHandler() {
         props.onDelete(props.id);
@@ -74,7 +79,7 @@ function Question(props) {
             {props.responseTab ?
                 <p className="question-title">{name}</p> :
                 <div>
-                    <EditText readonly={props.published} defaultValue={name} placeholder={"Untitled Question"} onSave={changeName} className={"question-title"} />
+                    <EditText readonly={props.published} defaultValue={name} placeholder={"Untitled Question"} onSave={changeName} className={"question-title"+" "+ invalid} />
                 </div>
             }
 
@@ -86,7 +91,7 @@ function Question(props) {
 
         <FadeIn>
             {!props.responseTab && <div className={"question-details"}>
-                {selected === "TextBased" ? <ShortText isStudent={false} /> : <MultipleChoice isStudent={false} published={props.published}
+                {selected === "TextBased" ? <ShortText getValueHandler={()=>{}} isStudent={false} /> : <MultipleChoice getValueHandler={()=>{}} isStudent={false} published={props.published}
                                                                            onDeleteOption={deleteOptionHandler}
                                                                            onAddOption={addOptionHandler}
                                                                            onRenameOption={renameOptionHandler}

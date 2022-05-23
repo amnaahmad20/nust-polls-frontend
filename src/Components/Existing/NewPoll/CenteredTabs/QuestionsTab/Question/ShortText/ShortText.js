@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import "./ShortText.css"
 import {EditText} from "react-edit-text";
 import {useStateValue} from "../../../../../../../StateProvider";
@@ -13,6 +13,11 @@ function ShortText(props) {
         className = "radio-text student"
     }
 
+    useEffect(() => {
+        console.log("props.value")
+        console.log(props.value)
+        props.getValueHandler(name)
+    }, [name]);
 
     function changeName(value) {
         setName(value.value)
