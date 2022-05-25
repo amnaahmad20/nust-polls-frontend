@@ -90,7 +90,7 @@ function PollSubmissionNav(props) {
                     console.log("res");
                     console.log(res);
                     setOverlayClass("loading-overlay")
-                    // navigate('/view-polls');
+                    navigate('/student');
                 }).catch(errs => console.log(errs))
             }
         }
