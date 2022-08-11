@@ -17,27 +17,27 @@ Login
 
 Admin Dashboard
 
-![Admin Dashboard](https://github.com/Fatima-Mujahid/nust-polls-frontend/blob/main/Resources/Admin Dashboard.png)
+![Admin Dashboard](https://github.com/Fatima-Mujahid/nust-polls-frontend/blob/main/Resources/Admin%20Dashboard.png)
 
 Poll Creation
 
-![Poll Creation](https://github.com/Fatima-Mujahid/nust-polls-frontend/blob/main/Resources/Poll Creation.png)
+![Poll Creation](https://github.com/Fatima-Mujahid/nust-polls-frontend/blob/main/Resources/Poll%20Creation.png)
 
 Poll Settings
 
-![Poll Settings](https://github.com/Fatima-Mujahid/nust-polls-frontend/blob/main/Resources/Poll Settings.png)
+![Poll Settings](https://github.com/Fatima-Mujahid/nust-polls-frontend/blob/main/Resources/Poll%20Settings.png)
 
 Report Generation
 
-![Report Generation](https://github.com/Fatima-Mujahid/nust-polls-frontend/blob/main/Resources/Report Generation.png)
+![Report Generation](https://github.com/Fatima-Mujahid/nust-polls-frontend/blob/main/Resources/Report%20Generation.png)
 
 View Polls
 
-![View Polls](https://github.com/Fatima-Mujahid/nust-polls-frontend/blob/main/Resources/View Polls.png)
+![View Polls](https://github.com/Fatima-Mujahid/nust-polls-frontend/blob/main/Resources/View%20Polls.png)
 
 Poll Submission
 
-![Poll Submission](https://github.com/Fatima-Mujahid/nust-polls-frontend/blob/main/Resources/Poll Submission.png)
+![Poll Submission](https://github.com/Fatima-Mujahid/nust-polls-frontend/blob/main/Resources/Poll%20Submission.png)
 
 
 
