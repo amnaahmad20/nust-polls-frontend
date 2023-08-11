@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { styled } from '@mui/system';
-import TabsUnstyled from '@mui/base/TabsUnstyled';
-import TabsListUnstyled from '@mui/base/TabsListUnstyled';
-import TabPanelUnstyled from '@mui/base/TabPanelUnstyled';
-import { buttonUnstyledClasses } from '@mui/base/ButtonUnstyled';
-import TabUnstyled, { tabUnstyledClasses } from '@mui/base/TabUnstyled';
+import Tab from '@mui/material/Tab';
+import TabPanel from '@mui/lab/TabPanel';
+import TabList from '@mui/lab/TabList';
+import TabContext from '@mui/lab/TabContext';
 import $ from 'jquery';
 import QuestionsTab from './QuestionsTab/QuestionsTab';
 import ResponseTab from './ResponsesTab/ResponseTab';
@@ -13,60 +12,6 @@ import { useState } from 'react';
 import { useSpring, animated } from 'react-spring';
 import { ToastContainer } from 'react-toastify';
 import { useStateValue } from '../../../../StateProvider';
-
-const Tab = styled(TabUnstyled)`
-  color: #085b91;
-  cursor: pointer;
-  font-size: 0.875rem;
-  font-weight: bold;
-  background-color: rgba(8, 91, 145, 0);
-  width: 100%;
-  padding: 12px 16px;
-  margin: 6px 6px;
-  border: none;
-  border-radius: 5px;
-  display: flex;
-  justify-content: center;
-  z-index: 10;
-  transition: 0.3s;
-
-  @media only screen and (max-width: 400px) {
-    flex-direction: column;
-    padding: 6px 16px;
-  }
-
-  &.${tabUnstyledClasses.selected} {
-    transition: 0.3s;
-    color: white;
-  }
-
-  &.${buttonUnstyledClasses.disabled} {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-`;
-
-const TabPanel = styled(TabPanelUnstyled)`
-  width: 100%;
-  height: 100%;
-`;
-
-const TabsList = styled(TabsListUnstyled)`
-  min-width: 320px;
-  background-color: white;
-  border-radius: 8px;
-  margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  align-content: space-between;
-
-  @media only screen and (max-width: 400px) {
-    min-width: 150px;
-    flex-direction: column;
-    text-align: center;
-  }
-`;
 
 function first() {
   $('#tab-back').attr('class', 'tab-button first');
@@ -78,29 +23,31 @@ function third() {
   $('#tab-back').attr('class', 'tab-button third');
 }
 
+const BlueTab = styled(Tab)`
+  color: #085B91 !important;
+`;
+
 export default function CenteredTabs() {
   const [{ responseTab }, dispatch] = useStateValue();
 
   const [value, setValue] = useState(1);
 
-  const handleChange = (event, newValue) => {
-    console.log(newValue);
+  const handleChange = (newValue) => {
     setValue(newValue);
   };
 
   return (
-    <TabsUnstyled
-      value={value}
-      onChange={(e, index) => handleChange(e, index)}
-      defaultValue={1}
-    >
+    <TabContext value={value} >
+  
       <ToastContainer position="bottom-right" />
       <div className={'tabs'}>
-        <TabsList>
+        <TabList>
           <span className={'tab-button first'} id={'tab-back'} />
-          <Tab
-            onClick={() => {
+          <BlueTab
+            label="Questions"
+            onClick={(value) => {
               first();
+              handleChange(1)
               dispatch({
                 type: 'SET_RESPONSE_TAB',
                 responseTab: false,
@@ -108,10 +55,12 @@ export default function CenteredTabs() {
             }}
           >
             Questions
-          </Tab>
-          <Tab
+          </BlueTab>
+          <BlueTab
+            label="Responses"
             onClick={() => {
               second();
+              handleChange(2)
               dispatch({
                 type: 'SET_RESPONSE_TAB',
                 responseTab: true,
@@ -119,10 +68,12 @@ export default function CenteredTabs() {
             }}
           >
             Responses
-          </Tab>
-          <Tab
+          </BlueTab>
+          <BlueTab
+            label="Settings"
             onClick={() => {
               third();
+              handleChange(3)
               dispatch({
                 type: 'SET_RESPONSE_TAB',
                 responseTab: false,
@@ -130,8 +81,8 @@ export default function CenteredTabs() {
             }}
           >
             Settings
-          </Tab>
-        </TabsList>
+          </BlueTab>
+        </TabList>
       </div>
       <TabPanel hidden={value !== 1} value={value} index={0}>
         <div className={'create-container'}>
@@ -148,6 +99,7 @@ export default function CenteredTabs() {
           <SettingTab />
         </div>
       </TabPanel>
-    </TabsUnstyled>
+    </TabContext>
+
   );
 }

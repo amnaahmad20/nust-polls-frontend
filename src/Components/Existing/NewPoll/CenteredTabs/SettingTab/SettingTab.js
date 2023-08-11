@@ -98,7 +98,7 @@ function SettingTab(props) {
 
 
 
-    function getTime(date = this.date) {
+    function getTime(date) {
         const parsedDate = new Date(Date.parse(date))
         // const formattedDate = parsedDate.toLocaleString("en-GB", {
         //     day: "numeric",

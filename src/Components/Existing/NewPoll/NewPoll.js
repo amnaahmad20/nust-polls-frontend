@@ -37,7 +37,7 @@ function NewPoll(props) {
         }).catch(err => console.log(err.message))}).catch(err => console.log(err.message))
     }
 
-    return (<div className={"base"} onClick={getOnClick}>
+    return (<div name="newpoll" className={"base"} onClick={getOnClick}>
         <img src={pollsIcon}/>
         <h6>Create a new Poll</h6>
     </div>);

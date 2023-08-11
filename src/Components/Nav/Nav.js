@@ -30,7 +30,7 @@ function Nav() {
     <div className="nav">
       <img src={pollsLogo} onClick={homeHandler} alt="logo" />
       {user && (
-        <button className="logout reg-button" onClick={logoutHandler}>
+        <button name="logout"className="logout reg-button" onClick={logoutHandler}>
           Log Out
         </button>
       )}
